@@ -1,4 +1,4 @@
-import { JourneyMilestone } from '../types/portfolio';
+import type { JourneyMilestone } from '../types/portfolio';
 
 export const JOURNEY_MILESTONES: JourneyMilestone[] = [
   {

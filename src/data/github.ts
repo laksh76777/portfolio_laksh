@@ -1,4 +1,4 @@
-import { GitHubStats } from '../types/portfolio';
+import type { GitHubStats } from '../types/portfolio';
 
 export const GITHUB_STATS_FALLBACK: GitHubStats = {
   username: "LakshSuthar",

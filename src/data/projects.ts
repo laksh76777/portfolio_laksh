@@ -1,4 +1,4 @@
-import { ProjectData } from '../types/portfolio';
+import type { ProjectData } from '../types/portfolio';
 
 export const PROJECTS_DATA: ProjectData[] = [
   {
