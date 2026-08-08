@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { GITHUB_STATS_FALLBACK } from '../../data/github';
 import { PROFILE_DATA } from '../../data/profile';
+import { GithubIcon } from '../common/Icons';
 import {
   Sparkles,
   Terminal,
-  Github,
   GitCommit,
   GitBranch,
   Star,
@@ -102,7 +102,7 @@ export const GithubCommandCenter: React.FC = () => {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
           <div className="glass-panel p-4 rounded-xl border border-cyan-500/20 text-center">
             <div className="flex items-center justify-center gap-1.5 text-cyan-400 text-xs font-mono mb-1">
-              <Github className="w-3.5 h-3.5" />
+              <GithubIcon className="w-3.5 h-3.5" />
               <span>PUBLIC REPOS</span>
             </div>
             <div className="text-2xl sm:text-3xl font-orbitron font-extrabold text-white">
@@ -188,7 +188,7 @@ export const GithubCommandCenter: React.FC = () => {
                         {repo.stars}
                       </span>
                       <span className="text-[10px] font-mono text-slate-400 flex items-center gap-1">
-                        <GitBranch className="w-3 h-3 text-slate-400" />
+                        <GitBranch className="w-3.5 h-3.5 text-slate-400" />
                         {repo.forks}
                       </span>
                     </div>

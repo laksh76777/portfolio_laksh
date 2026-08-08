@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { SectionId, ProjectData } from './types/portfolio';
+import { useState, useEffect } from 'react';
+import type { SectionId, ProjectData } from './types/portfolio';
 import { UniverseCanvas } from './components/3d/UniverseCanvas';
 import { LoadingScreen } from './components/LoadingScreen/LoadingScreen';
 import { Navbar } from './components/Navigation/Navbar';
@@ -119,7 +119,7 @@ export function App() {
         onOpenResume={() => setIsResumeOpen(true)}
       />
 
-      {/* Floating Universe HUD Controls (Warp Speed, Wireframe) */}
+      {/* Floating Universe HUD Controls */}
       <UniverseControls
         warpSpeed={warpSpeed}
         onToggleWarp={handleToggleWarp}

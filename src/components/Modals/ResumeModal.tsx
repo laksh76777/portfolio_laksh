@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROFILE_DATA } from '../../data/profile';
-import { X, Download, Printer, ExternalLink, GraduationCap, Award, Briefcase, Code2, CheckCircle2 } from 'lucide-react';
+import { X, Printer } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
 
 interface ResumeModalProps {

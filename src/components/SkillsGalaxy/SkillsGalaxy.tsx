@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { SKILL_CATEGORIES, ALL_SKILLS } from '../../data/skills';
-import { SkillItem } from '../../types/portfolio';
+import type { SkillItem } from '../../types/portfolio';
 import { Sparkles, Layers, Cpu, Database, Wrench, Binary, Orbit, Activity } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
 
@@ -83,7 +83,7 @@ export const SkillsGalaxy: React.FC = () => {
           })}
         </div>
 
-        {/* Galaxy Layout: Left (Interactive Central Core / Radar) & Right (Active Skill Telemetry & Nodes Grid) */}
+        {/* Galaxy Layout */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
           {/* Left: Glowing Galaxy Core Visual HUD (5 cols) */}

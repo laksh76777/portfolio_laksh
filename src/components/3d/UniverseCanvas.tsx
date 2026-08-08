@@ -3,7 +3,7 @@ import { Canvas } from '@react-three/fiber';
 import { StarField } from './StarField';
 import { CinematicPlanet } from './CinematicPlanet';
 import { FloatingParticles } from './FloatingParticles';
-import { SectionId } from '../../types/portfolio';
+import type { SectionId } from '../../types/portfolio';
 
 interface UniverseCanvasProps {
   activeSection: SectionId;

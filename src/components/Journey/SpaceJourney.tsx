@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { JOURNEY_MILESTONES } from '../../data/journey';
-import { JourneyMilestone } from '../../types/portfolio';
+import type { JourneyMilestone } from '../../types/portfolio';
 import {
   Sparkles,
   Rocket,

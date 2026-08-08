@@ -1,7 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { PROFILE_DATA } from '../../data/profile';
-import { SectionId } from '../../types/portfolio';
+import type { SectionId } from '../../types/portfolio';
 import { Compass, Sparkles, FolderGit2, Send, Download, Award, GraduationCap } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
 
@@ -84,7 +84,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onNavigate, onOpenResu
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.3 }}
-          className="flex flex-wrap items-center justify-center gap-4 mb-12 w-full max-w-md"
+          className="flex flex-wrap items-center justify-center gap-4 mb-12 w-full max-md"
         >
           {/* Explore My Universe */}
           <button

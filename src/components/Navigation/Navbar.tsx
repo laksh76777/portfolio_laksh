@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { SectionId } from '../../types/portfolio';
+import type { SectionId } from '../../types/portfolio';
 import { Volume2, VolumeX, Menu, X, FileText, Compass, Sparkles } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
 

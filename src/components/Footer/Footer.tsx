@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { PROFILE_DATA } from '../../data/profile';
-import { Sparkles, Heart, ArrowUp, Github, Linkedin, Code, Mail } from 'lucide-react';
+import { GithubIcon, LinkedinIcon } from '../common/Icons';
+import { Sparkles, ArrowUp, Code, Mail } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
 
 export const Footer: React.FC = () => {
@@ -63,7 +64,7 @@ export const Footer: React.FC = () => {
               rel="noreferrer"
               className="hover:text-cyan-300 flex items-center gap-1.5 transition-colors"
             >
-              <Github className="w-3.5 h-3.5 text-cyan-400" />
+              <GithubIcon className="w-3.5 h-3.5 text-cyan-400" />
               <span>GitHub</span>
             </a>
 
@@ -73,7 +74,7 @@ export const Footer: React.FC = () => {
               rel="noreferrer"
               className="hover:text-purple-300 flex items-center gap-1.5 transition-colors"
             >
-              <Linkedin className="w-3.5 h-3.5 text-purple-400" />
+              <LinkedinIcon className="w-3.5 h-3.5 text-purple-400" />
               <span>LinkedIn</span>
             </a>
 

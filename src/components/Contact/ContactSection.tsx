@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROFILE_DATA } from '../../data/profile';
+import { GithubIcon, LinkedinIcon } from '../common/Icons';
 import {
   Sparkles,
   Send,
@@ -12,8 +13,6 @@ import {
   Check,
   Radio,
   FileText,
-  Github,
-  Linkedin,
   Code
 } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
@@ -54,7 +53,6 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
     universeAudio.playHoverChirp();
     setStatus('transmitting');
 
-    // Simulate real network submission with receipt generation
     setTimeout(() => {
       const receipt = {
         id: `TX-${Math.floor(100000 + Math.random() * 900000)}`,
@@ -97,10 +95,10 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
           </p>
         </div>
 
-        {/* Contact Grid: Transmission Deck (Left 7 cols) & Orbital Coordinates (Right 5 cols) */}
+        {/* Contact Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
           
-          {/* Left Column: Holographic Transmission Form Deck (7 cols) */}
+          {/* Left Column: Form Deck (7 cols) */}
           <div className="lg:col-span-7 glass-panel p-6 sm:p-10 rounded-3xl border border-cyan-500/25 relative overflow-hidden text-left">
             <AnimatePresence mode="wait">
               {status === 'sent' && transmissionReceipt ? (
@@ -125,7 +123,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                     </div>
                   </div>
 
-                  {/* Holographic transmission receipt card */}
+                  {/* Holographic transmission receipt */}
                   <div className="p-5 rounded-2xl bg-slate-950/90 border border-cyan-500/30 font-mono text-xs flex flex-col gap-3">
                     <div className="flex items-center justify-between border-b border-slate-800 pb-2">
                       <span className="text-slate-400">TRANSMISSION ID:</span>
@@ -154,7 +152,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                   </div>
 
                   <p className="text-xs text-slate-300 font-sans font-light leading-relaxed">
-                    Thank you for reaching out! Your transmission has been queued into Laksh's priority inbox (<span className="text-cyan-300">{PROFILE_DATA.email}</span>). A prompt response will follow shortly.
+                    Thank you for reaching out! Your transmission has been queued into Laksh's priority inbox (<span className="text-cyan-300">{PROFILE_DATA.email}</span>).
                   </p>
 
                   <button
@@ -368,7 +366,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                 rel="noreferrer"
                 className="p-3 rounded-xl glass-panel border border-slate-800 hover:border-cyan-400 text-center flex flex-col items-center gap-1.5 transition-all text-xs font-mono text-slate-300 hover:text-white"
               >
-                <Github className="w-4 h-4 text-cyan-400" />
+                <GithubIcon className="w-4 h-4 text-cyan-400" />
                 <span>GitHub</span>
               </a>
 
@@ -378,7 +376,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                 rel="noreferrer"
                 className="p-3 rounded-xl glass-panel border border-slate-800 hover:border-purple-400 text-center flex flex-col items-center gap-1.5 transition-all text-xs font-mono text-slate-300 hover:text-white"
               >
-                <Linkedin className="w-4 h-4 text-purple-400" />
+                <LinkedinIcon className="w-4 h-4 text-purple-400" />
                 <span>LinkedIn</span>
               </a>
 

@@ -1,10 +1,10 @@
-import { SkillCategory, SkillItem } from '../types/portfolio';
+import type { SkillCategory, SkillItem } from '../types/portfolio';
 
 export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Frontend Engineering",
     description: "Responsive, component-driven, high-performance interfaces with state management.",
-    color: "#38bdf8", // Cyan
+    color: "#38bdf8",
     orbitRadius: 180,
     skills: [
       {
@@ -79,7 +79,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Programming Languages",
     description: "Core algorithmic thinking, systems programming, and high-performance computation.",
-    color: "#a855f7", // Violet
+    color: "#a855f7",
     orbitRadius: 260,
     skills: [
       {
@@ -125,7 +125,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Backend & Database",
     description: "Real-time synchronization, database modeling, RESTful API architecture, and cloud data.",
-    color: "#10b981", // Emerald
+    color: "#10b981",
     orbitRadius: 340,
     skills: [
       {
@@ -180,7 +180,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Tools & Platforms",
     description: "Version control, CI/CD deployment pipelines, modern IDEs, and UI design prototyping.",
-    color: "#f59e0b", // Amber
+    color: "#f59e0b",
     orbitRadius: 420,
     skills: [
       {
@@ -233,7 +233,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
   {
     title: "Core Computer Science",
     description: "Academic bedrock and foundational engineering discipline.",
-    color: "#ec4899", // Pink
+    color: "#ec4899",
     orbitRadius: 500,
     skills: [
       {

@@ -1,19 +1,18 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROJECTS_DATA } from '../../data/projects';
-import { ProjectData } from '../../types/portfolio';
+import type { ProjectData } from '../../types/portfolio';
 import { FakeNewsInteractiveSim } from './FakeNewsInteractiveSim';
 import { InventoryInteractiveSim } from './InventoryInteractiveSim';
+import { GithubIcon } from '../common/Icons';
 import {
   Sparkles,
   ExternalLink,
-  Github,
   Play,
   Maximize2,
   CheckCircle2,
   Code2,
   Cpu,
-  Layers,
   Activity
 } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
@@ -78,7 +77,7 @@ export const ProjectMissions: React.FC<ProjectMissionsProps> = ({ onOpenProjectD
                   </div>
                 </div>
 
-                {/* Main Content Grid: Image/Screen (Left 6 cols) + Details (Right 6 cols) */}
+                {/* Main Content Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center mt-6">
                   
                   {/* Left Column: Holographic Screen Preview or Live Sandbox (6 cols) */}
@@ -232,7 +231,7 @@ export const ProjectMissions: React.FC<ProjectMissionsProps> = ({ onOpenProjectD
                         rel="noreferrer"
                         className="px-4 py-2.5 rounded-xl bg-slate-900/80 hover:bg-slate-800 border border-slate-700 hover:border-slate-500 text-slate-200 text-xs font-mono flex items-center gap-2 transition-colors cursor-pointer"
                       >
-                        <Github className="w-4 h-4" />
+                        <GithubIcon className="w-4 h-4" />
                         <span>SOURCE REPO</span>
                       </a>
 

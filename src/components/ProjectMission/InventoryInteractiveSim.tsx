@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
 import { Database, Plus, Minus, AlertCircle, CheckCircle2, ScanLine, ShoppingCart, RefreshCw } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
 
@@ -23,7 +22,6 @@ const INITIAL_ITEMS: InventoryItem[] = [
 export const InventoryInteractiveSim: React.FC = () => {
   const [items, setItems] = useState<InventoryItem[]>(INITIAL_ITEMS);
   const [cart, setCart] = useState<{ name: string; qty: number; total: number }[]>([]);
-  const [lastScanned, setLastScanned] = useState<string | null>(null);
   const [syncNotice, setSyncNotice] = useState<string>('Firebase Firestore Real-Time: Synchronized');
 
   const updateStock = (id: string, delta: number) => {
@@ -54,7 +52,6 @@ export const InventoryInteractiveSim: React.FC = () => {
 
   const handleScanBarcode = (item: InventoryItem) => {
     universeAudio.playHolographicChime();
-    setLastScanned(item.sku);
     updateStock(item.id, -1);
 
     setCart((prev) => {
@@ -74,7 +71,6 @@ export const InventoryInteractiveSim: React.FC = () => {
     universeAudio.playHoverChirp();
     setItems(INITIAL_ITEMS);
     setCart([]);
-    setLastScanned(null);
   };
 
   const grandTotal = cart.reduce((acc, curr) => acc + curr.total, 0);

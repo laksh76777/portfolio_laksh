@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ProjectData } from '../../types/portfolio';
-import { X, ExternalLink, Github, CheckCircle2, Cpu, Sparkles } from 'lucide-react';
+import type { ProjectData } from '../../types/portfolio';
+import { GithubIcon } from '../common/Icons';
+import { X, ExternalLink, CheckCircle2, Cpu, Sparkles } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
 
 interface ProjectDetailModalProps {
@@ -137,7 +138,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                 rel="noreferrer"
                 className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 text-xs font-mono flex items-center gap-1.5 transition-colors"
               >
-                <Github className="w-3.5 h-3.5" />
+                <GithubIcon className="w-3.5 h-3.5" />
                 <span>GITHUB</span>
               </a>
             </div>
