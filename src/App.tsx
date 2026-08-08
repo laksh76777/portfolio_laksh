@@ -8,8 +8,7 @@ import { HeroSection } from './components/Hero/HeroSection';
 import { MissionProfile } from './components/About/MissionProfile';
 import { SkillsGalaxy } from './components/SkillsGalaxy/SkillsGalaxy';
 import { ProjectMissions } from './components/ProjectMission/ProjectMissions';
-import { GithubCommandCenter } from './components/GithubCommandCenter/GithubCommandCenter';
-import { SpaceJourney } from './components/Journey/SpaceJourney';
+import { AchievementsSection } from './components/Achievements/AchievementsSection';
 import { ContactSection } from './components/Contact/ContactSection';
 import { Footer } from './components/Footer/Footer';
 import { ResumeModal } from './components/Modals/ResumeModal';
@@ -30,7 +29,7 @@ export function App() {
   // Scroll spy to update active section in 3D universe
   useEffect(() => {
     const handleScroll = () => {
-      const sections: SectionId[] = ['hero', 'about', 'skills', 'missions', 'github', 'journey', 'contact'];
+      const sections: SectionId[] = ['hero', 'about', 'skills', 'projects', 'achievements', 'contact'];
       const scrollPosition = window.scrollY + window.innerHeight * 0.35;
 
       for (const section of sections) {
@@ -60,14 +59,13 @@ export function App() {
         universeAudio.toggleMute();
       } else if (e.key === 'w' || e.key === 'W') {
         setWarpSpeed((prev) => !prev);
-      } else if (['1', '2', '3', '4', '5', '6'].includes(e.key)) {
+      } else if (['1', '2', '3', '4', '5'].includes(e.key)) {
         const map: Record<string, SectionId> = {
           '1': 'about',
           '2': 'skills',
-          '3': 'missions',
-          '4': 'github',
-          '5': 'journey',
-          '6': 'contact'
+          '3': 'projects',
+          '4': 'achievements',
+          '5': 'contact'
         };
         const target = map[e.key];
         if (target) {
@@ -146,9 +144,7 @@ export function App() {
           onOpenProjectDetail={(project) => setSelectedProject(project)}
         />
 
-        <GithubCommandCenter />
-
-        <SpaceJourney />
+        <AchievementsSection />
 
         <ContactSection
           onOpenResume={() => setIsResumeOpen(true)}
@@ -156,7 +152,7 @@ export function App() {
       </main>
 
       {/* Footer */}
-      <Footer />
+      <Footer onOpenResume={() => setIsResumeOpen(true)} />
 
       {/* Modals */}
       <ResumeModal

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import type { SectionId } from '../../types/portfolio';
-import { Volume2, VolumeX, Menu, X, FileText, Compass, Sparkles } from 'lucide-react';
+import { Volume2, VolumeX, Menu, X, FileText, Sparkles } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
 
 interface NavbarProps {
@@ -9,17 +9,16 @@ interface NavbarProps {
   onOpenResume: () => void;
 }
 
-const NAV_ITEMS: { id: SectionId; label: string; num: string }[] = [
-  { id: 'about', label: 'ABOUT', num: '01' },
-  { id: 'skills', label: 'SKILLS', num: '02' },
-  { id: 'missions', label: 'MISSIONS', num: '03' },
-  { id: 'github', label: 'GITHUB', num: '04' },
-  { id: 'journey', label: 'JOURNEY', num: '05' },
-  { id: 'contact', label: 'CONTACT', num: '06' },
+const NAV_ITEMS: { id: SectionId; label: string }[] = [
+  { id: 'about', label: 'ABOUT' },
+  { id: 'skills', label: 'SKILLS' },
+  { id: 'projects', label: 'PROJECTS' },
+  { id: 'achievements', label: 'ACHIEVEMENTS' },
+  { id: 'contact', label: 'CONTACT' },
 ];
 
 export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpenResume }) => {
-  const [isMuted, setIsMuted] = useState(true);
+  const [isMuted, setIsMuted] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
@@ -38,7 +37,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
   };
 
   const handleNavClick = (id: SectionId) => {
-    universeAudio.playHoverChirp();
+    universeAudio.playClickBeep();
     onNavigate(id);
     setMobileMenuOpen(false);
   };
@@ -46,53 +45,56 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
   return (
     <>
       <header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${
-          scrolled
-            ? 'py-3 bg-[#030712]/80 backdrop-blur-xl border-b border-cyan-500/15 shadow-[0_4px_30px_rgba(0,0,0,0.6)]'
-            : 'py-5 bg-transparent'
-        }`}
+        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ${scrolled
+            ? 'py-3 bg-[#030712]/90 backdrop-blur-xl border-b border-cyan-500/15 shadow-[0_4px_30px_rgba(0,0,0,0.6)]'
+            : 'py-4 sm:py-5 bg-transparent'
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between">
-          
-          {/* Logo: ✦ LAKSH */}
+
+          {/* Logo with Real Profile Image Avatar */}
           <button
             onClick={() => handleNavClick('hero')}
-            className="flex items-center gap-2 group text-left cursor-pointer focus:outline-none"
+            onMouseEnter={() => universeAudio.playHoverChirp()}
+            className="flex items-center gap-2.5 group text-left cursor-pointer focus:outline-none"
             aria-label="Laksh Suthar Home"
           >
-            <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-cyan-500/20 to-purple-600/30 border border-cyan-400/40 flex items-center justify-center shadow-[0_0_15px_rgba(56,189,248,0.3)] group-hover:border-cyan-300 group-hover:shadow-[0_0_20px_rgba(56,189,248,0.6)] transition-all duration-300">
-              <span className="text-cyan-400 font-orbitron font-bold text-base group-hover:scale-110 transition-transform">
-                ✦
-              </span>
+            <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 bg-gradient-to-br from-cyan-400 to-purple-600 shadow-[0_0_15px_rgba(56,189,248,0.4)] group-hover:shadow-[0_0_20px_rgba(56,189,248,0.7)] transition-all duration-300">
+              <div className="w-full h-full rounded-full overflow-hidden bg-slate-950">
+                <img
+                  src="public/images/laksh_profile.png"
+                  alt="Laksh Suthar Avatar"
+                  className="w-full h-full object-cover object-top filter contrast-105 group-hover:scale-110 transition-transform duration-300"
+                />
+              </div>
             </div>
             <div className="flex flex-col">
               <span className="font-orbitron font-extrabold text-white text-base tracking-widest group-hover:text-cyan-300 transition-colors">
                 LAKSH
               </span>
               <span className="font-mono text-[9px] text-cyan-400/80 tracking-widest uppercase">
-                CSE • DEV-2027
+                CSE • 2027
               </span>
             </div>
           </button>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-slate-950/70 border border-cyan-500/20 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
+          {/* Clean Desktop Navigation Links (Clean Names Only) */}
+          <nav className="hidden md:flex items-center gap-1.5 p-1 rounded-full bg-slate-950/80 border border-cyan-500/20 backdrop-blur-md shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)]">
             {NAV_ITEMS.map((item) => {
               const isActive = activeSection === item.id;
               return (
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`px-3.5 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 cursor-pointer flex items-center gap-1.5 relative ${
-                    isActive
+                  onMouseEnter={() => universeAudio.playHoverChirp()}
+                  className={`px-4 py-1.5 rounded-full text-xs font-mono tracking-wider transition-all duration-200 cursor-pointer relative ${isActive
                       ? 'text-cyan-300 font-semibold bg-cyan-950/90 border border-cyan-400/50 shadow-[0_0_15px_rgba(56,189,248,0.35)]'
                       : 'text-slate-300 hover:text-white hover:bg-slate-900/60'
-                  }`}
+                    }`}
                 >
-                  <span className="text-[10px] text-cyan-400/60">{item.num}</span>
                   <span>{item.label}</span>
                   {isActive && (
-                    <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#38bdf8]" />
+                    <span className="inline-block ml-1.5 w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#38bdf8]" />
                   )}
                 </button>
               );
@@ -101,15 +103,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
 
           {/* Action Hub: Sound Synth + Resume Modal */}
           <div className="flex items-center gap-2.5">
-            {/* Ambient Synth Audio Toggle */}
+            {/* Ambient Audio Toggle */}
             <button
               onClick={handleToggleAudio}
-              className={`p-2 rounded-lg border transition-all duration-200 cursor-pointer flex items-center gap-1 text-xs font-mono ${
-                !isMuted
+              className={`p-2 rounded-lg border transition-all duration-200 cursor-pointer flex items-center gap-1 text-xs font-mono ${!isMuted
                   ? 'border-cyan-400 bg-cyan-950/60 text-cyan-300 shadow-[0_0_12px_rgba(56,189,248,0.4)]'
                   : 'border-slate-800 bg-slate-950/50 text-slate-400 hover:text-slate-200 hover:border-slate-700'
-              }`}
-              title={isMuted ? 'Turn on space audio ambience' : 'Mute space audio'}
+                }`}
+              title={isMuted ? 'Turn on sound effects' : 'Mute sound effects'}
               aria-label="Toggle Universe Ambient Audio"
             >
               {!isMuted ? (
@@ -128,10 +129,11 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
             {/* View Resume Button */}
             <button
               onClick={() => {
-                universeAudio.playHolographicChime();
+                universeAudio.playModalOpen();
                 onOpenResume();
               }}
-              className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500/20 to-purple-600/20 hover:from-cyan-500/30 hover:to-purple-600/30 border border-cyan-400/30 hover:border-cyan-400/70 text-cyan-200 text-xs font-mono font-medium transition-all duration-200 shadow-[0_0_15px_rgba(56,189,248,0.2)] cursor-pointer"
+              onMouseEnter={() => universeAudio.playHoverChirp()}
+              className="hidden sm:flex items-center gap-1.5 px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500/20 to-purple-600/20 hover:from-cyan-500/30 hover:to-purple-600/30 border border-cyan-400/40 hover:border-cyan-400/70 text-cyan-200 text-xs font-mono font-medium transition-all duration-200 shadow-[0_0_15px_rgba(56,189,248,0.2)] cursor-pointer"
             >
               <FileText className="w-3.5 h-3.5 text-cyan-400" />
               <span>RESUME</span>
@@ -139,7 +141,10 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
 
             {/* Mobile Hamburger Toggle */}
             <button
-              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              onClick={() => {
+                universeAudio.playClickBeep();
+                setMobileMenuOpen(!mobileMenuOpen);
+              }}
               className="md:hidden p-2 rounded-lg border border-cyan-500/30 bg-slate-950/80 text-cyan-400 hover:bg-slate-900 cursor-pointer"
               aria-label="Toggle navigation drawer"
             >
@@ -149,12 +154,12 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
         </div>
       </header>
 
-      {/* Mobile Drawer Navigation */}
+      {/* Mobile Drawer Navigation (Clean Names Only) */}
       {mobileMenuOpen && (
         <div className="fixed inset-x-0 top-[60px] z-40 bg-[#030712]/95 backdrop-blur-2xl border-b border-cyan-500/20 p-5 md:hidden shadow-[0_20px_50px_rgba(0,0,0,0.9)] animate-in fade-in slide-in-from-top-4">
           <div className="flex flex-col gap-2">
             <div className="text-[10px] font-mono text-cyan-400/80 uppercase tracking-widest px-2 pb-1 border-b border-slate-800 flex items-center justify-between">
-              <span>UNIVERSE COORDINATES</span>
+              <span>NAVIGATION</span>
               <Sparkles className="w-3 h-3 text-cyan-400" />
             </div>
 
@@ -164,17 +169,15 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
                 <button
                   key={item.id}
                   onClick={() => handleNavClick(item.id)}
-                  className={`w-full py-2.5 px-4 rounded-lg text-left text-sm font-mono flex items-center justify-between transition-all ${
-                    isActive
-                      ? 'bg-cyan-950/80 border border-cyan-400/50 text-cyan-300 shadow-[0_0_12px_rgba(56,189,248,0.3)]'
+                  className={`w-full py-2.5 px-4 rounded-lg text-left text-sm font-mono flex items-center justify-between transition-all ${isActive
+                      ? 'bg-cyan-950/80 border border-cyan-400/50 text-cyan-300 shadow-[0_0_12px_rgba(56,189,248,0.3)] font-semibold'
                       : 'text-slate-300 hover:bg-slate-900/60 hover:text-white'
-                  }`}
+                    }`}
                 >
-                  <span className="flex items-center gap-3">
-                    <span className="text-cyan-400 text-xs">{item.num}</span>
-                    <span className="tracking-wider">{item.label}</span>
-                  </span>
-                  <Compass className="w-4 h-4 text-cyan-400/60" />
+                  <span className="tracking-wider">{item.label}</span>
+                  {isActive && (
+                    <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse shadow-[0_0_8px_#38bdf8]" />
+                  )}
                 </button>
               );
             })}
@@ -182,13 +185,14 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
             <div className="pt-2 border-t border-slate-800 flex gap-2">
               <button
                 onClick={() => {
+                  universeAudio.playModalOpen();
                   onOpenResume();
                   setMobileMenuOpen(false);
                 }}
-                className="flex-1 py-2 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-mono flex items-center justify-center gap-2"
+                className="flex-1 py-2.5 rounded-lg bg-cyan-500/20 border border-cyan-400/40 text-cyan-300 text-xs font-mono flex items-center justify-center gap-2 cursor-pointer"
               >
                 <FileText className="w-3.5 h-3.5" />
-                VIEW FULL RESUME
+                VIEW OFFICIAL RESUME
               </button>
             </div>
           </div>

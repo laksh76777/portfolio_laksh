@@ -1,4 +1,4 @@
-export type SectionId = 'hero' | 'about' | 'skills' | 'missions' | 'github' | 'journey' | 'contact';
+export type SectionId = 'hero' | 'about' | 'skills' | 'projects' | 'achievements' | 'contact';
 
 export interface ProjectData {
   id: string;
@@ -19,18 +19,18 @@ export interface ProjectData {
   liveDemoUrl: string;
   previewImage: string;
   highlights: string[];
-  hasInteractiveSimulator: boolean;
+  hasInteractiveSimulator?: boolean;
   simulatorType?: 'fake-news' | 'inventory-system';
 }
 
 export interface SkillItem {
   name: string;
-  level: number; // 0-100
-  iconName: string;
-  category: 'Frontend' | 'Programming' | 'Backend / Database' | 'Tools & Platforms' | 'Core CS';
+  level: number;
+  iconName?: string;
+  category: string;
   color: string;
   experienceYears?: string;
-  description: string;
+  description?: string;
   relatedProjects?: string[];
 }
 
@@ -39,21 +39,7 @@ export interface SkillCategory {
   description: string;
   skills: SkillItem[];
   color: string;
-  orbitRadius: number;
-}
-
-export interface JourneyMilestone {
-  id: string;
-  year: string;
-  date: string;
-  title: string;
-  location: string;
-  role: string;
-  description: string;
-  checkpointType: 'LAUNCH' | 'ACCELERATION' | 'DEEP_SPACE' | 'EVENT_HORIZON';
-  coordinates: string;
-  keyAchievements: string[];
-  tags: string[];
+  orbitRadius?: number;
 }
 
 export interface GithubRepo {
@@ -83,6 +69,20 @@ export interface GitHubStats {
     color: string;
   }[];
   featuredRepos: GithubRepo[];
+}
+
+export interface JourneyMilestone {
+  id: string;
+  year: string;
+  date: string;
+  title: string;
+  location: string;
+  role: string;
+  description: string;
+  checkpointType: 'LAUNCH' | 'ACCELERATION' | 'DEEP_SPACE' | 'EVENT_HORIZON';
+  coordinates: string;
+  keyAchievements: string[];
+  tags: string[];
 }
 
 export interface UniverseCameraState {

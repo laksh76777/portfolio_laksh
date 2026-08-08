@@ -1,10 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { PROFILE_DATA } from '../../data/profile';
-import { GithubIcon, LinkedinIcon } from '../common/Icons';
-import { Sparkles, ArrowUp, Code, Mail } from 'lucide-react';
+import { GithubIcon, LinkedinIcon, LeetCodeIcon, CodolioIcon } from '../common/Icons';
+import { Sparkles, ArrowUp, Mail, FileText } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onOpenResume?: () => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onOpenResume }) => {
   const [utcTime, setUtcTime] = useState<string>('');
 
   useEffect(() => {
@@ -18,18 +22,18 @@ export const Footer: React.FC = () => {
   }, []);
 
   const scrollToTop = () => {
-    universeAudio.playHoverChirp();
+    universeAudio.playClickBeep();
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
   return (
     <footer className="relative z-10 border-t border-cyan-500/20 bg-[#02040a]/90 backdrop-blur-2xl py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto flex flex-col gap-8">
-        
+
         {/* Top telemetry bar */}
         <div className="flex flex-wrap items-center justify-between gap-4 pb-8 border-b border-slate-800">
           <div className="flex items-center gap-3">
-            <div className="w-8 h-8 rounded-lg bg-cyan-950 border border-cyan-500/40 flex items-center justify-center">
+            <div className="w-8 h-8 rounded-lg bg-cyan-950 border border-cyan-500/40 flex items-center justify-center shadow-[0_0_10px_rgba(56,189,248,0.3)]">
               <span className="text-cyan-400 font-orbitron font-bold">✦</span>
             </div>
             <div>
@@ -46,7 +50,7 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-4 text-xs font-mono">
             <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950 border border-slate-800 text-slate-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-              <span>SYSTEM STATUS: 100% OPERATIONAL</span>
+              <span>STATUS: OPEN FOR OPPORTUNITIES</span>
             </div>
 
             <div className="text-slate-400 text-[11px]">
@@ -57,11 +61,12 @@ export const Footer: React.FC = () => {
 
         {/* Middle row: links & back to top */}
         <div className="flex flex-wrap items-center justify-between gap-4">
-          <div className="flex items-center gap-4 text-xs font-mono text-slate-400">
+          <div className="flex flex-wrap items-center gap-3 sm:gap-5 text-xs font-mono text-slate-400">
             <a
               href={PROFILE_DATA.links.github}
               target="_blank"
               rel="noreferrer"
+              onMouseEnter={() => universeAudio.playHoverChirp()}
               className="hover:text-cyan-300 flex items-center gap-1.5 transition-colors"
             >
               <GithubIcon className="w-3.5 h-3.5 text-cyan-400" />
@@ -72,6 +77,7 @@ export const Footer: React.FC = () => {
               href={PROFILE_DATA.links.linkedin}
               target="_blank"
               rel="noreferrer"
+              onMouseEnter={() => universeAudio.playHoverChirp()}
               className="hover:text-purple-300 flex items-center gap-1.5 transition-colors"
             >
               <LinkedinIcon className="w-3.5 h-3.5 text-purple-400" />
@@ -82,26 +88,53 @@ export const Footer: React.FC = () => {
               href={PROFILE_DATA.links.leetcode}
               target="_blank"
               rel="noreferrer"
+              onMouseEnter={() => universeAudio.playHoverChirp()}
               className="hover:text-amber-300 flex items-center gap-1.5 transition-colors"
             >
-              <Code className="w-3.5 h-3.5 text-amber-400" />
+              <LeetCodeIcon className="w-3.5 h-3.5 text-amber-400" />
               <span>LeetCode</span>
             </a>
 
             <a
+              href={PROFILE_DATA.links.codolio}
+              target="_blank"
+              rel="noreferrer"
+              onMouseEnter={() => universeAudio.playHoverChirp()}
+              className="hover:text-emerald-300 flex items-center gap-1.5 transition-colors"
+            >
+              <CodolioIcon className="w-3.5 h-3.5 text-emerald-400" />
+              <span>Codolio</span>
+            </a>
+
+            <a
               href={PROFILE_DATA.links.emailMailto}
+              onMouseEnter={() => universeAudio.playHoverChirp()}
               className="hover:text-cyan-300 flex items-center gap-1.5 transition-colors"
             >
               <Mail className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Email</span>
+              <span>{PROFILE_DATA.email}</span>
             </a>
+
+            {onOpenResume && (
+              <button
+                onClick={() => {
+                  universeAudio.playModalOpen();
+                  onOpenResume();
+                }}
+                className="hover:text-cyan-300 flex items-center gap-1.5 transition-colors cursor-pointer"
+              >
+                <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                <span>Resume PDF</span>
+              </button>
+            )}
           </div>
 
           {/* Scroll to Top */}
           <button
             onClick={scrollToTop}
-            className="px-3.5 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-cyan-400 text-xs font-mono text-slate-300 hover:text-cyan-300 flex items-center gap-2 cursor-pointer transition-all"
-            title="Return to Space Orbit Launch"
+            onMouseEnter={() => universeAudio.playHoverChirp()}
+            className="px-3.5 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-cyan-400 text-xs font-mono text-slate-300 hover:text-cyan-300 flex items-center gap-2 cursor-pointer transition-all shadow-sm"
+            title="Return to top of page"
           >
             <span>RETURN TO APEX</span>
             <ArrowUp className="w-3.5 h-3.5" />
@@ -111,10 +144,10 @@ export const Footer: React.FC = () => {
         {/* Bottom copyright notice */}
         <div className="flex flex-wrap items-center justify-between gap-2 pt-4 border-t border-slate-900 text-[10px] font-mono text-slate-500">
           <div>
-            © {new Date().getFullYear()} Laksh Suthar. All rights reserved across digital space.
+            © {new Date().getFullYear()} {PROFILE_DATA.name} • {PROFILE_DATA.phone} • {PROFILE_DATA.location}
           </div>
           <div className="flex items-center gap-1">
-            <span>Engineered with React, TypeScript, Three.js & Tailwind CSS</span>
+            <span>Built with React, TypeScript, Three.js & Tailwind CSS</span>
             <Sparkles className="w-3 h-3 text-cyan-400" />
           </div>
         </div>

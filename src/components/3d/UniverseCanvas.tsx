@@ -47,12 +47,10 @@ export const UniverseCanvas: React.FC<UniverseCanvasProps> = ({
         return isMobile ? [2, -3, -9] : [-6, 1.2, -8.5];
       case 'skills':
         return isMobile ? [0, -4, -10] : [6, -2, -9];
-      case 'missions':
+      case 'projects':
         return isMobile ? [-2, -3, -9] : [-5.5, -1, -8];
-      case 'github':
+      case 'achievements':
         return isMobile ? [1, -4, -10] : [5, 2, -9];
-      case 'journey':
-        return isMobile ? [0, -3, -9] : [0, 4, -10];
       case 'contact':
         return isMobile ? [0, -2, -8] : [4.5, -1.5, -7.5];
       default:

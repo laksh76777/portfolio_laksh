@@ -23,11 +23,11 @@ export const GithubCommandCenter: React.FC = () => {
   // Interactive CLI State
   const [cliInput, setCliInput] = useState('');
   const [cliHistory, setCliHistory] = useState<{ command: string; output: string }[]>([
-    { command: 'init --telemetry', output: 'ORBITAL GITHUB TELEMETRY READY. Type "help" for available commands.' }
+    { command: 'init --telemetry', output: 'LAKSH SUTHAR GITHUB TELEMETRY READY. Type "help" for available commands.' }
   ]);
 
   const handleCopyClone = (name: string, cloneUrl: string) => {
-    universeAudio.playHoverChirp();
+    universeAudio.playCopySound();
     navigator.clipboard.writeText(cloneUrl);
     setCopiedRepo(name);
     setTimeout(() => setCopiedRepo(null), 2000);
@@ -37,20 +37,20 @@ export const GithubCommandCenter: React.FC = () => {
     e.preventDefault();
     if (!cliInput.trim()) return;
 
-    universeAudio.playHoverChirp();
+    universeAudio.playClickBeep();
     const cmd = cliInput.trim().toLowerCase();
     let out = '';
 
     switch (cmd) {
       case 'help':
-        out = 'Available commands: summary, skills, projects, certs, stats, contact, clear, date';
+        out = 'Available commands: summary, skills, projects, certs, resume, contact, clear, date';
         break;
       case 'summary':
       case 'bio':
         out = `${PROFILE_DATA.name} - ${PROFILE_DATA.role} (${PROFILE_DATA.institution}, CGPA ${PROFILE_DATA.academicCGPA}). ${PROFILE_DATA.tagline}`;
         break;
       case 'skills':
-        out = 'Skills: React, TypeScript, Java (DSA), Python (ML), Firebase Firestore, Node.js, SQL, Tailwind CSS.';
+        out = 'Skills: React.js, TypeScript, Java (DSA), Python (ML), Firebase Firestore, Node.js, SQL, Tailwind CSS.';
         break;
       case 'projects':
         out = '1. Fake News Analysis System (React + TypeScript + AI APIs)\n2. AI Inventory Management System (React + Firebase Firestore + Barcode)';
@@ -58,14 +58,14 @@ export const GithubCommandCenter: React.FC = () => {
       case 'certs':
         out = '1. GeeksforGeeks GFG 160 Certification\n2. Stanford University & DeepLearning.AI Machine Learning Specialization';
         break;
-      case 'stats':
-        out = `CGPA: 8.24/10 | DSA Solved: 100+ | Public Repos: ${stats.publicRepos} | Commits: ${stats.totalCommitsYear}`;
+      case 'resume':
+        out = `Download Official Resume PDF: ${window.location.origin}/Laksh_Suthar_Resume.pdf`;
         break;
       case 'contact':
         out = `Email: ${PROFILE_DATA.email} | Phone: ${PROFILE_DATA.phone} | Location: ${PROFILE_DATA.location}`;
         break;
       case 'date':
-        out = `UTC TIMESTAMP: ${new Date().toISOString()} // ORBIT PHASE 2026-2027`;
+        out = `UTC TIMESTAMP: ${new Date().toISOString()} // DEV-2027`;
         break;
       case 'clear':
         setCliHistory([]);
@@ -94,7 +94,7 @@ export const GithubCommandCenter: React.FC = () => {
             GITHUB COMMAND CENTER
           </h2>
           <p className="mt-3 text-slate-400 font-sans max-w-xl text-sm sm:text-base">
-            Open-source repositories, commit telemetry, technology distribution, and interactive terminal interface.
+            Open-source repositories, verified codebases, language telemetry, and interactive CLI console.
           </p>
         </div>
 
@@ -113,7 +113,7 @@ export const GithubCommandCenter: React.FC = () => {
           <div className="glass-panel p-4 rounded-xl border border-purple-500/20 text-center">
             <div className="flex items-center justify-center gap-1.5 text-purple-400 text-xs font-mono mb-1">
               <GitCommit className="w-3.5 h-3.5" />
-              <span>YEAR COMMITS</span>
+              <span>COMMITS</span>
             </div>
             <div className="text-2xl sm:text-3xl font-orbitron font-extrabold text-white">
               {stats.totalCommitsYear}+
@@ -133,10 +133,10 @@ export const GithubCommandCenter: React.FC = () => {
           <div className="glass-panel p-4 rounded-xl border border-cyan-500/20 text-center">
             <div className="flex items-center justify-center gap-1.5 text-cyan-400 text-xs font-mono mb-1">
               <GitBranch className="w-3.5 h-3.5" />
-              <span>CONTRIBUTIONS</span>
+              <span>ACTIVE STATUS</span>
             </div>
             <div className="text-2xl sm:text-3xl font-orbitron font-extrabold text-white">
-              Active // 2026
+              Online // 2026
             </div>
           </div>
         </div>
@@ -147,14 +147,15 @@ export const GithubCommandCenter: React.FC = () => {
           {/* Left Column: Featured Repositories List (7 cols) */}
           <div className="lg:col-span-7 flex flex-col gap-4">
             <div className="text-xs font-mono text-cyan-400 uppercase tracking-widest flex items-center justify-between">
-              <span>FEATURED SOFTWARE REPOSITORIES</span>
+              <span>FEATURED REPOSITORIES</span>
               <a
-                href={stats.profileUrl}
+                href={PROFILE_DATA.links.github}
                 target="_blank"
                 rel="noreferrer"
+                onMouseEnter={() => universeAudio.playHoverChirp()}
                 className="text-xs text-slate-400 hover:text-cyan-300 flex items-center gap-1"
               >
-                <span>github.com/LakshSuthar</span>
+                <span>github.com/laksh76777</span>
                 <ExternalLink className="w-3 h-3" />
               </a>
             </div>
@@ -250,7 +251,7 @@ export const GithubCommandCenter: React.FC = () => {
             <div className="glass-panel p-5 rounded-2xl border border-cyan-500/20 flex flex-col gap-4 text-left">
               <div className="text-xs font-mono text-cyan-400 uppercase tracking-widest flex items-center justify-between">
                 <span>LANGUAGE DISTRIBUTION</span>
-                <span className="text-[10px] text-slate-500">ACCUMULATIVE</span>
+                <span className="text-[10px] text-slate-500">CODEBASE ACCUMULATION</span>
               </div>
 
               {/* Progress split bar */}
@@ -301,7 +302,7 @@ export const GithubCommandCenter: React.FC = () => {
                 {cliHistory.map((item, idx) => (
                   <div key={idx} className="flex flex-col gap-0.5">
                     <div className="text-cyan-300 flex items-center gap-1.5">
-                      <span className="text-slate-500">guest@universe:~$</span>
+                      <span className="text-slate-500">guest@laksh-universe:~$</span>
                       <span>{item.command}</span>
                     </div>
                     <div className="text-slate-300 whitespace-pre-wrap pl-4 border-l border-slate-800">
@@ -318,7 +319,7 @@ export const GithubCommandCenter: React.FC = () => {
                   type="text"
                   value={cliInput}
                   onChange={(e) => setCliInput(e.target.value)}
-                  placeholder="Type 'help', 'skills', 'projects', 'summary'..."
+                  placeholder="Type 'help', 'resume', 'skills', 'projects'..."
                   className="flex-1 bg-transparent text-xs text-slate-100 placeholder-slate-600 focus:outline-none font-mono"
                 />
                 <button

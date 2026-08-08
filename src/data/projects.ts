@@ -23,8 +23,8 @@ export const PROJECTS_DATA: ProjectData[] = [
       { label: "EXPLAINABILITY", value: "Multi-Vector Analysis" },
       { label: "ARCHITECTURE", value: "Component-Driven" }
     ],
-    githubUrl: "https://github.com/LakshSuthar/Fake-News-Analysis-System",
-    liveDemoUrl: "https://fake-news-analysis-laksh.vercel.app",
+    githubUrl: "https://github.com/laksh76777/fake_news_analysis",
+    liveDemoUrl: "https://fake-news-analysiz.vercel.app/",
     previewImage: "/images/fake_news_preview.jpg",
     highlights: [
       "Real-time news credibility calculation",
@@ -57,8 +57,8 @@ export const PROJECTS_DATA: ProjectData[] = [
       { label: "STOCK AUTOMATION", value: "Low-Stock Alerts" },
       { label: "CHECKOUT SPEED", value: "Barcode Billing" }
     ],
-    githubUrl: "https://github.com/LakshSuthar/Inventory-Management-System",
-    liveDemoUrl: "https://inventory-management-laksh.vercel.app",
+    githubUrl: "https://github.com/laksh76777/Ai-inventory-system",
+    liveDemoUrl: "https://github.com/laksh76777/Ai-inventory-system",
     previewImage: "/images/inventory_preview.jpg",
     highlights: [
       "Automated low-stock threshold triggers & warnings",

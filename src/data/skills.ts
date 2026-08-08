@@ -9,7 +9,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     skills: [
       {
         name: "React.js",
-        level: 90,
+        level: 70,
         iconName: "Atom",
         category: "Frontend",
         color: "#61dafb",
@@ -19,7 +19,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "TypeScript",
-        level: 85,
+        level: 80,
         iconName: "FileCode2",
         category: "Frontend",
         color: "#3178c6",
@@ -39,7 +39,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "Tailwind CSS",
-        level: 88,
+        level: 70,
         iconName: "Palette",
         category: "Frontend",
         color: "#38bdf8",
@@ -67,7 +67,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "Next.js",
-        level: 78,
+        level: 50,
         iconName: "Layers",
         category: "Frontend",
         color: "#ffffff",
@@ -94,7 +94,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "Python",
-        level: 85,
+        level: 50,
         iconName: "Terminal",
         category: "Programming",
         color: "#3776ab",
@@ -104,7 +104,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "C Programming",
-        level: 80,
+        level: 70,
         iconName: "Cpu",
         category: "Programming",
         color: "#a8b9cc",
@@ -113,7 +113,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "TypeScript / JS",
-        level: 88,
+        level: 70,
         iconName: "Braces",
         category: "Programming",
         color: "#3178c6",
@@ -130,7 +130,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
     skills: [
       {
         name: "Firebase Firestore",
-        level: 88,
+        level: 80,
         iconName: "Database",
         category: "Backend / Database",
         color: "#ffca28",
@@ -140,7 +140,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "SQL / MySQL",
-        level: 82,
+        level: 70,
         iconName: "Server",
         category: "Backend / Database",
         color: "#00758f",
@@ -149,7 +149,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "REST APIs & Integration",
-        level: 88,
+        level: 50,
         iconName: "Webhook",
         category: "Backend / Database",
         color: "#38bdf8",
@@ -168,7 +168,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "Flask",
-        level: 75,
+        level: 40,
         iconName: "Activity",
         category: "Backend / Database",
         color: "#000000",
@@ -262,7 +262,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "Operating Systems",
-        level: 85,
+        level: 70,
         iconName: "Cpu",
         category: "Core CS",
         color: "#10b981",
@@ -270,7 +270,7 @@ export const SKILL_CATEGORIES: SkillCategory[] = [
       },
       {
         name: "Computer Networks",
-        level: 84,
+        level: 65,
         iconName: "Network",
         category: "Core CS",
         color: "#3b82f6",
