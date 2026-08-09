@@ -38,27 +38,7 @@ export const UniverseCanvas: React.FC<UniverseCanvasProps> = ({
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
 
-  // Compute planet position based on section
-  const planetPosition: [number, number, number] = (() => {
-    switch (activeSection) {
-      case 'hero':
-        return isMobile ? [0, -1.8, -7] : [5.2, -0.6, -7];
-      case 'about':
-        return isMobile ? [2, -3, -9] : [-6, 1.2, -8.5];
-      case 'skills':
-        return isMobile ? [0, -4, -10] : [6, -2, -9];
-      case 'projects':
-        return isMobile ? [-2, -3, -9] : [-5.5, -1, -8];
-      case 'achievements':
-        return isMobile ? [1, -4, -10] : [5, 2, -9];
-      case 'contact':
-        return isMobile ? [0, -2, -8] : [4.5, -1.5, -7.5];
-      default:
-        return [5.2, -0.6, -7];
-    }
-  })();
-
-  const planetScale = isMobile ? 1.8 : 2.6;
+  const planetScale = isMobile ? 1.9 : 2.7;
   const starCount = isMobile ? 900 : 2600;
 
   if (!hasWebGL) {
@@ -84,9 +64,9 @@ export const UniverseCanvas: React.FC<UniverseCanvasProps> = ({
       >
         <Suspense fallback={null}>
           <ambientLight intensity={0.35} />
-          <directionalLight position={[10, 10, 5]} intensity={1.2} color="#ffffff" />
-          <pointLight position={[-10, -5, -5]} intensity={0.8} color="#38bdf8" />
-          <pointLight position={[5, -10, 5]} intensity={0.6} color="#a855f7" />
+          <directionalLight position={[10, 10, 5]} intensity={1.3} color="#ffffff" />
+          <pointLight position={[-10, -5, -5]} intensity={0.9} color="#38bdf8" />
+          <pointLight position={[5, -10, 5]} intensity={0.7} color="#a855f7" />
 
           {/* Deep Space Starfield with Twinkling & Shooting Stars */}
           <StarField count={starCount} warpSpeed={warpSpeed} speed={0.04} />
@@ -94,11 +74,12 @@ export const UniverseCanvas: React.FC<UniverseCanvasProps> = ({
           {/* Floating Quantum Particles */}
           <FloatingParticles count={isMobile ? 80 : 220} />
 
-          {/* Majestic Cinematic 3D Planet */}
+          {/* Majestic Cinematic 3D Planet with Silky Smooth Continuous Trajectory */}
           <CinematicPlanet
-            position={planetPosition}
+            activeSection={activeSection}
             scale={planetScale}
             wireframe={wireframeMode}
+            isMobile={isMobile}
           />
         </Suspense>
       </Canvas>

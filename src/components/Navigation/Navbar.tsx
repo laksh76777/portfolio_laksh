@@ -62,7 +62,7 @@ export const Navbar: React.FC<NavbarProps> = ({ activeSection, onNavigate, onOpe
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full p-0.5 bg-gradient-to-br from-cyan-400 to-purple-600 shadow-[0_0_15px_rgba(56,189,248,0.4)] group-hover:shadow-[0_0_20px_rgba(56,189,248,0.7)] transition-all duration-300">
               <div className="w-full h-full rounded-full overflow-hidden bg-slate-950">
                 <img
-                  src="public/images/laksh_profile.png"
+                  src="/images/laksh_profile.jpg"
                   alt="Laksh Suthar Avatar"
                   className="w-full h-full object-cover object-top filter contrast-105 group-hover:scale-110 transition-transform duration-300"
                 />

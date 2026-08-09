@@ -14,6 +14,7 @@ import {
   Phone,
   MapPin,
   Eye,
+  Code,
   CheckCircle2
 } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
@@ -25,7 +26,7 @@ interface ResumeModalProps {
 
 export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
-  const [activeView, setActiveView] = useState<'paper' | 'embed'>('paper');
+  const [activeView, setActiveView] = useState<'paper' | 'raw' | 'embed'>('paper');
 
   const handlePrint = () => {
     universeAudio.playClickBeep();
@@ -34,49 +35,101 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
 
   const handleDownload = () => {
     universeAudio.playSuccessChime();
+    
+    // Multi-fallback download strategy to guarantee instantaneous PDF file download
+    try {
+      const link = document.createElement('a');
+      link.href = '/Laksh_Suthar_Resume.pdf';
+      link.download = 'Laksh_Suthar_Resume.pdf';
+      link.target = '_blank';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch {
+      window.open('/Laksh_Suthar_Resume.pdf', '_blank');
+    }
   };
 
-  const handleCopyText = () => {
-    universeAudio.playCopySound();
-    const resumeText = `LAKSH SUTHAR
-Phone: ${PROFILE_DATA.phone} | Email: ${PROFILE_DATA.email} | Location: ${PROFILE_DATA.location}
-LinkedIn: ${PROFILE_DATA.links.linkedin} | GitHub: ${PROFILE_DATA.links.github} | LeetCode: ${PROFILE_DATA.links.leetcode} | Codolio: ${PROFILE_DATA.links.codolio}
+  const latexResumeCode = `% ==============================================================================
+% LAKSH SUTHAR — OFFICIAL RESUME
+% Contact: +91-9024005934 | lakshsuthar703@gmail.com | Bengaluru, Karnataka
+% Profiles: https://linkedin.com/in/laksh-suthar | https://github.com/laksh76777
+% ==============================================================================
 
-SUMMARY:
-${PROFILE_DATA.bio}
+\\documentclass[a4paper,10pt]{article}
+\\usepackage{latexsym,fullpage,hyperref,titlesec,enumitem}
 
-EDUCATION:
-JSS Academy of Technical Education, Bengaluru (2023 - 2027)
-Bachelor of Engineering in Computer Science and Engineering | CGPA: ${PROFILE_DATA.academicCGPA}
+\\begin{document}
 
-PROJECT EXPERIENCE:
-1. Fake News Analysis System (2026)
-React, TypeScript, Vite, AI APIs, HTML, CSS
-GitHub: ${PROFILE_DATA.links.fakeNewsGithub} | Live: ${PROFILE_DATA.links.fakeNewsLive}
+\\begin{center}
+    {\\Huge \\textbf{Laksh Suthar}} \\\\ \\vspace{2pt}
+    +91-9024005934 $|$ \\href{mailto:lakshsuthar703@gmail.com}{lakshsuthar703@gmail.com} $|$ Bengaluru, Karnataka \\\\
+    \\href{https://linkedin.com/in/laksh-suthar}{LinkedIn} $|$ \\href{https://github.com/laksh76777}{GitHub} $|$ \\href{https://leetcode.com/u/laksh076/}{LeetCode} $|$ \\href{https://codolio.com/profile/Laksh14}{Codolio}
+\\end{center}
 
-2. AI-Based Inventory Management System (2025)
-React, JavaScript, Firebase Firestore, HTML, CSS
-GitHub: ${PROFILE_DATA.links.inventoryGithub}
+\\section*{SUMMARY}
+\\hrule \\vspace{4pt}
+Final-year Computer Science Engineering student (Expected Graduation: May 2027) with hands-on experience building scalable full-stack applications using Java, Python, React.js, TypeScript, and Firebase. Strong foundation in Data Structures \\& Algorithms, Object-Oriented Programming, Database Management Systems, Operating Systems, Computer Networks, and Software Engineering.
 
-TECHNICAL SKILLS:
-Programming: Java, C, Python, JavaScript, TypeScript
-Frontend: HTML, CSS, Tailwind CSS, React.js, Next.js, Vite
-Backend: Node.js, Express.js, Flask, REST APIs, API Integration
-Databases: SQL, Firebase Firestore
-Tools: Git, GitHub, VS Code, Firebase, Vercel, Netlify, Canva, Figma
-Core CS: Data Structures & Algorithms, OOP, DBMS, OS, Computer Networks, Software Engineering
-Soft Skills: Problem Solving, Team Collaboration, Communication, Agile Methodology
+\\section*{EDUCATION}
+\\hrule \\vspace{4pt}
+\\textbf{JSS Academy of Technical Education, Bengaluru} \\hfill 2023 -- 2027 \\\\
+Bachelor of Engineering in Computer Science and Engineering \\hfill \\textbf{CGPA: 8.24/10}
 
-CERTIFICATIONS:
-- GeeksforGeeks GFG 160 Certification (${PROFILE_DATA.links.gfgCertificate})
-- Machine Learning Specialization Stanford University & DeepLearning.AI (${PROFILE_DATA.links.mlCertificate})
+\\section*{PROJECT EXPERIENCE}
+\\hrule \\vspace{4pt}
+\\textbf{Fake News Analysis System} \\hfill 2026 \\\\
+\\textit{React, TypeScript, Vite, AI APIs, HTML, CSS} \\\\
+\\href{https://github.com/laksh76777/fake_news_analysis}{GitHub Repository} --- \\href{https://fake-news-analysiz.vercel.app/}{Live Demo}
+\\begin{itemize}[leftmargin=12pt,noitemsep]
+    \\item Developed a React-based Fake News Analysis System that analyzes news articles in real time and generates authenticity scores using AI APIs.
+    \\item Built an interactive frontend using React and TypeScript, providing users with real-time news credibility predictions.
+    \\item Integrated external AI APIs to analyze news content and generate authenticity scores with detailed insights.
+    \\item Designed a responsive and user-friendly interface using Vite, HTML, and CSS to enhance accessibility and performance.
+    \\item Applied component-based architecture and API integration to deliver a scalable and maintainable web application.
+\\end{itemize}
 
-ACHIEVEMENTS:
-- Solved 100+ Data Structures & Algorithms problems across LeetCode and Codolio.
-- Developed and deployed real-world applications (Fake News Analysis & Inventory Management System).
-- Maintained CGPA of 8.24/10 in Computer Science and Engineering.`;
+\\textbf{Inventory Management System} \\hfill 2025 \\\\
+\\textit{React, JavaScript, Firebase, HTML, CSS} \\\\
+\\href{https://github.com/laksh76777/Ai-inventory-system}{GitHub Repository}
+\\begin{itemize}[leftmargin=12pt,noitemsep]
+    \\item Developed an inventory management system to automate product tracking and stock management.
+    \\item Implemented real-time inventory updates using Firebase, ensuring synchronized data across users.
+    \\item Added low-stock alerts and inventory monitoring features to improve stock availability and operational efficiency.
+    \\item Designed responsive dashboards for managing products, inventory status, and stock updates.
+    \\item Utilized React and Firebase to build a scalable, user-friendly web application for efficient inventory management.
+\\end{itemize}
 
-    navigator.clipboard.writeText(resumeText);
+\\section*{TECHNICAL SKILLS}
+\\hrule \\vspace{4pt}
+\\textbf{Programming Languages:} Java, C, Python, JavaScript, TypeScript \\\\
+\\textbf{Frontend:} HTML, CSS, Tailwind CSS, React.js, Next.js, Vite \\\\
+\\textbf{Backend:} Node.js, Express.js, Flask, REST APIs, API Integration \\\\
+\\textbf{Databases:} SQL, Firebase Firestore \\\\
+\\textbf{Tools \\& Platforms:} Git, GitHub, VS Code, Firebase, Vercel, Netlify, Canva, Figma \\\\
+\\textbf{Core CS:} Data Structures and Algorithm, Object-Oriented Programming, Database Management Systems, Operating Systems, Computer Networks, Software Engineering \\\\
+\\textbf{Soft Skills:} Problem Solving, Team Collaboration, Communication, Agile Methodology
+
+\\section*{CERTIFICATIONS}
+\\hrule \\vspace{4pt}
+\\begin{itemize}[leftmargin=12pt,noitemsep]
+    \\item GeeksforGeeks GFG 160 Certification -- \\href{https://media.geeksforgeeks.org/courses/certificates/3238cc41b5a93fbb7dd0be5d7b792502.pdf}{Certificate}
+    \\item Machine Learning Specialization (Stanford University \\& DeepLearning.AI) -- \\href{https://coursera.org/share/85633875685312d69aa9b9fb3455df8e}{Certificate}
+\\end{itemize}
+
+\\section*{ACHIEVEMENTS}
+\\hrule \\vspace{4pt}
+\\begin{itemize}[leftmargin=12pt,noitemsep]
+    \\item Solved \\textbf{100+ Data Structures and Algorithms problems} across LeetCode and Codolio.
+    \\item Developed and deployed real-world projects including Fake News Analysis System and Inventory Management System using React, TypeScript, Firebase, and AI APIs.
+    \\item Maintained a CGPA of \\textbf{8.24/10} in Computer Science and Engineering.
+\\end{itemize}
+
+\\end{document}`;
+
+  const handleCopyCode = () => {
+    universeAudio.playClickBeep();
+    navigator.clipboard.writeText(latexResumeCode);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -113,61 +166,63 @@ ACHIEVEMENTS:
 
               {/* Action Buttons Bar */}
               <div className="flex items-center gap-2 flex-wrap">
-                {/* Toggle Paper / PDF Embed View */}
-                <div className="hidden sm:flex rounded-lg bg-slate-900 border border-slate-800 p-0.5 text-xs font-mono">
+                {/* 3 View Mode Selectors */}
+                <div className="flex rounded-lg bg-slate-900 border border-slate-800 p-0.5 text-xs font-mono">
                   <button
                     onClick={() => {
                       universeAudio.playHoverChirp();
                       setActiveView('paper');
                     }}
-                    className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer ${
+                    className={`px-3 py-1 rounded-md transition-colors cursor-pointer flex items-center gap-1 ${
                       activeView === 'paper'
-                        ? 'bg-cyan-950 text-cyan-300 font-semibold'
+                        ? 'bg-cyan-950 text-cyan-300 font-semibold shadow-sm'
                         : 'text-slate-400 hover:text-white'
                     }`}
                   >
-                    Format View
+                    <Eye className="w-3 h-3" />
+                    <span>Visual Paper</span>
                   </button>
+
+                  <button
+                    onClick={() => {
+                      universeAudio.playHoverChirp();
+                      setActiveView('raw');
+                    }}
+                    className={`px-3 py-1 rounded-md transition-colors cursor-pointer flex items-center gap-1 ${
+                      activeView === 'raw'
+                        ? 'bg-cyan-950 text-cyan-300 font-semibold shadow-sm'
+                        : 'text-slate-400 hover:text-white'
+                    }`}
+                  >
+                    <Code className="w-3 h-3" />
+                    <span>Raw LaTeX</span>
+                  </button>
+
                   <button
                     onClick={() => {
                       universeAudio.playHoverChirp();
                       setActiveView('embed');
                     }}
-                    className={`px-2.5 py-1 rounded-md transition-colors cursor-pointer flex items-center gap-1 ${
+                    className={`hidden sm:flex items-center gap-1 px-3 py-1 rounded-md transition-colors cursor-pointer ${
                       activeView === 'embed'
-                        ? 'bg-cyan-950 text-cyan-300 font-semibold'
+                        ? 'bg-cyan-950 text-cyan-300 font-semibold shadow-sm'
                         : 'text-slate-400 hover:text-white'
                     }`}
                   >
-                    <Eye className="w-3 h-3" />
-                    <span>Raw PDF</span>
+                    <FileText className="w-3 h-3" />
+                    <span>PDF Stream</span>
                   </button>
                 </div>
 
-                {/* Direct Download Button */}
-                <a
-                  href="/Laksh_Suthar_Resume.pdf"
-                  download="Laksh_Suthar_Resume.pdf"
+                {/* Instant Download Button */}
+                <button
                   onClick={handleDownload}
-                  className="px-3.5 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-orbitron font-bold text-xs flex items-center gap-1.5 shadow-[0_0_15px_rgba(56,189,248,0.4)] transition-all cursor-pointer"
+                  className="px-3.5 py-1.5 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 font-orbitron font-bold text-xs flex items-center gap-1.5 shadow-[0_0_15px_rgba(56,189,248,0.4)] transition-all cursor-pointer transform hover:-translate-y-0.5"
                   title="Download Official PDF"
                 >
                   <Download className="w-3.5 h-3.5" />
                   <span>DOWNLOAD PDF</span>
-                </a>
-
-                {/* Open in new tab */}
-                <a
-                  href="/Laksh_Suthar_Resume.pdf"
-                  target="_blank"
-                  rel="noreferrer"
-                  onClick={() => universeAudio.playClickBeep()}
-                  className="hidden md:flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 text-xs font-mono transition-colors"
-                  title="Open PDF file in new browser tab"
-                >
-                  <ExternalLink className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>NEW TAB</span>
-                </a>
+                </button>
 
                 {/* Print button */}
                 <button
@@ -177,25 +232,6 @@ ACHIEVEMENTS:
                 >
                   <Printer className="w-3.5 h-3.5" />
                   <span className="hidden sm:inline">PRINT</span>
-                </button>
-
-                {/* Copy Text */}
-                <button
-                  onClick={handleCopyText}
-                  className="px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-cyan-400 text-slate-300 hover:text-cyan-300 text-xs font-mono flex items-center gap-1 cursor-pointer transition-colors"
-                  title="Copy full resume text"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-400" />
-                      <span className="text-emerald-400">COPIED</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span className="hidden sm:inline">COPY</span>
-                    </>
-                  )}
                 </button>
 
                 {/* Close modal */}
@@ -213,17 +249,47 @@ ACHIEVEMENTS:
             </div>
 
             {/* Modal Body */}
-            <div className="overflow-y-auto p-3 sm:p-6 md:p-8 flex justify-center bg-slate-950/70">
+            <div className="overflow-y-auto p-3 sm:p-6 md:p-8 flex justify-center bg-slate-950/75">
               {activeView === 'embed' ? (
-                <div className="w-full h-[75vh] rounded-2xl overflow-hidden border border-slate-800 bg-slate-900">
+                <div className="w-full h-[75vh] rounded-2xl overflow-hidden border border-slate-800 bg-slate-900 shadow-inner">
                   <iframe
                     src="/Laksh_Suthar_Resume.pdf#toolbar=1"
                     title="Laksh Suthar Official Resume PDF Viewer"
                     className="w-full h-full"
                   />
                 </div>
+              ) : activeView === 'raw' ? (
+                /* Raw LaTeX / Monospace View with line numbers & syntax box */
+                <div className="w-full max-w-4xl flex flex-col gap-3 text-left">
+                  <div className="flex items-center justify-between p-3 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono text-slate-300">
+                    <span className="flex items-center gap-2 text-cyan-400">
+                      <Code className="w-4 h-4" />
+                      <span>Laksh_Suthar_Resume.tex (Raw Document Source)</span>
+                    </span>
+                    <button
+                      onClick={handleCopyCode}
+                      className="px-3 py-1 rounded-md bg-cyan-950 border border-cyan-500/40 text-cyan-300 hover:bg-cyan-900 flex items-center gap-1.5 cursor-pointer transition-colors"
+                    >
+                      {copied ? (
+                        <>
+                          <Check className="w-3.5 h-3.5 text-emerald-400" />
+                          <span className="text-emerald-400">COPIED TO CLIPBOARD</span>
+                        </>
+                      ) : (
+                        <>
+                          <Copy className="w-3.5 h-3.5" />
+                          <span>COPY RAW CODE</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  <pre className="p-5 rounded-2xl bg-[#010409] border border-slate-800 text-slate-200 font-mono text-xs overflow-x-auto leading-relaxed selection:bg-cyan-500/30 selection:text-white shadow-2xl">
+                    <code>{latexResumeCode}</code>
+                  </pre>
+                </div>
               ) : (
-                /* Pixel-Perfect Clean White/Dark Paper Resume */
+                /* Pixel-Perfect Clean White Paper Resume (1:1 with Screenshot & OCR) */
                 <div
                   id="printable-resume"
                   className="w-full max-w-4xl bg-white text-slate-900 p-6 sm:p-10 md:p-12 rounded-2xl shadow-2xl font-serif leading-relaxed text-left selection:bg-cyan-500/30"
@@ -548,14 +614,12 @@ ACHIEVEMENTS:
               </div>
 
               <div className="flex items-center gap-3">
-                <a
-                  href="/Laksh_Suthar_Resume.pdf"
-                  download="Laksh_Suthar_Resume.pdf"
+                <button
                   onClick={handleDownload}
                   className="px-4 py-1.5 rounded-lg bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-orbitron font-bold text-xs cursor-pointer transition-colors"
                 >
                   DOWNLOAD PDF
-                </a>
+                </button>
                 <button
                   onClick={() => {
                     universeAudio.playModalClose();

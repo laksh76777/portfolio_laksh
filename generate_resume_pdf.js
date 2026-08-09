@@ -65,9 +65,9 @@ stream
 
 % Top Header Name
 BT
-/F1 20 Tf
+/F1 22 Tf
 0.08 0.12 0.2 rg
-235 805 Td
+225 805 Td
 (Laksh Suthar) Tj
 ET
 
@@ -98,13 +98,7 @@ BT
 ( | ) Tj
 0.05 0.45 0.85 rg
 284 774 Td
-(LeetCode) Tj
-0.2 0.2 0.2 rg
-325 774 Td
-( | ) Tj
-0.05 0.45 0.85 rg
-335 774 Td
-(Codolio) Tj
+(Portfolio) Tj
 ET
 
 % SECTION: SUMMARY
@@ -172,127 +166,110 @@ BT
 (CGPA: 8.24/10) Tj
 ET
 
-BT
-/F1 9 Tf
-0.1 0.1 0.1 rg
-40 638 Td
-(Sri Chaitanya Techno School, Bengaluru \\(CBSE\\)) Tj
-ET
-
-BT
-/F3 8.5 Tf
-0.2 0.2 0.2 rg
-490 638 Td
-(2021 - 2023) Tj
-ET
-
-BT
-/F2 8.5 Tf
-0.2 0.2 0.2 rg
-40 626 Td
-(Class XII \\(Senior Secondary\\) - CBSE Board) Tj
-ET
-
 % SECTION: PROJECT EXPERIENCE
 0.2 0.2 0.2 RG
 0.8 w
-40 614 m 555 614 l S
+40 638 m 555 638 l S
 
 BT
 /F1 10.5 Tf
 0.1 0.1 0.1 rg
-40 602 Td
+40 626 Td
 (PROJECT EXPERIENCE) Tj
 ET
 
 BT
 /F1 9 Tf
 0.1 0.1 0.1 rg
-40 589 Td
+40 613 Td
 (Fake News Analysis System) Tj
 ET
 
 BT
 /F3 8.5 Tf
 0.2 0.2 0.2 rg
-525 589 Td
+525 613 Td
 (2026) Tj
 ET
 
 BT
 /F3 8 Tf
 0.25 0.25 0.25 rg
-40 578 Td
+40 602 Td
 (React, TypeScript, Vite, AI APIs, HTML, CSS) Tj
 ET
 
 BT
 /F2 8 Tf
 0.05 0.45 0.85 rg
-40 567 Td
+40 591 Td
 (GitHub Repository: github.com/laksh76777/fake_news_analysis) Tj
 0.2 0.2 0.2 rg
-280 567 Td
+280 591 Td
 ( | ) Tj
 0.05 0.45 0.85 rg
-290 567 Td
-(Live: fake-news-analysiz.vercel.app) Tj
+290 591 Td
+(Live Demo: fake-news-analysiz.vercel.app) Tj
 ET
 
 BT
 /F2 8 Tf
 0.15 0.15 0.15 rg
-45 555 Td
+45 579 Td
 (\\(bullet\\) Developed a React-based Fake News Analysis System that analyzes news articles in real time and generates authenticity) Tj
-45 545 Td
+45 569 Td
 (  scores using AI APIs.) Tj
-45 534 Td
+45 558 Td
 (\\(bullet\\) Built an interactive frontend using React and TypeScript, providing users with real-time news credibility predictions.) Tj
-45 523 Td
+45 547 Td
 (\\(bullet\\) Integrated external AI APIs to analyze news content and generate authenticity scores with detailed insights.) Tj
-45 512 Td
+45 536 Td
 (\\(bullet\\) Designed a responsive and user-friendly interface using Vite, HTML, and CSS to enhance accessibility and performance.) Tj
+45 525 Td
+(\\(bullet\\) Applied component-based architecture and API integration to deliver a scalable and maintainable web application.) Tj
 ET
 
 BT
 /F1 9 Tf
 0.1 0.1 0.1 rg
-40 496 Td
+40 508 Td
 (Inventory Management System) Tj
 ET
 
 BT
 /F3 8.5 Tf
 0.2 0.2 0.2 rg
-525 496 Td
+525 508 Td
 (2025) Tj
 ET
 
 BT
 /F3 8 Tf
 0.25 0.25 0.25 rg
-40 485 Td
-(React, JavaScript, Firebase Firestore, HTML, CSS) Tj
+40 497 Td
+(React, JavaScript, Firebase, HTML, CSS) Tj
 ET
 
 BT
 /F2 8 Tf
 0.05 0.45 0.85 rg
-40 474 Td
+40 486 Td
 (GitHub Repository: github.com/laksh76777/Ai-inventory-system) Tj
 ET
 
 BT
 /F2 8 Tf
 0.15 0.15 0.15 rg
-45 462 Td
+45 474 Td
 (\\(bullet\\) Developed an inventory management system to automate product tracking and stock management.) Tj
-45 451 Td
+45 463 Td
 (\\(bullet\\) Implemented real-time inventory updates using Firebase, ensuring synchronized data across users.) Tj
-45 440 Td
+45 452 Td
 (\\(bullet\\) Added low-stock alerts and inventory monitoring features to improve stock availability and operational efficiency.) Tj
-45 429 Td
+45 441 Td
 (\\(bullet\\) Designed responsive dashboards for managing products, inventory status, and stock updates.) Tj
+45 430 Td
+(\\(bullet\\) Utilized React and Firebase to build a scalable, user-friendly web application for efficient inventory management.) Tj
 ET
 
 % SECTION: TECHNICAL SKILLS
@@ -382,69 +359,73 @@ BT
 /F2 8.2 Tf
 0.15 0.15 0.15 rg
 155 332 Td
-(Data Structures & Algorithms, OOP, DBMS, Operating Systems, Computer Networks) Tj
+(Data Structures and Algorithm, Object-Oriented Programming, Database Management Systems,) Tj
+155 322 Td
+(Operating Systems, Computer Networks, Software Engineering) Tj
 ET
 
 BT
 /F1 8.2 Tf
 0.1 0.1 0.1 rg
-40 320 Td
+40 310 Td
 (Soft Skills:) Tj
 ET
 BT
 /F2 8.2 Tf
 0.15 0.15 0.15 rg
-155 320 Td
+155 310 Td
 (Problem Solving, Team Collaboration, Communication, Agile Methodology) Tj
 ET
 
 % SECTION: CERTIFICATIONS
 0.2 0.2 0.2 RG
 0.8 w
-40 308 m 555 308 l S
+40 298 m 555 298 l S
 
 BT
 /F1 10.5 Tf
 0.1 0.1 0.1 rg
-40 296 Td
+40 286 Td
 (CERTIFICATIONS) Tj
 ET
 
 BT
 /F2 8.2 Tf
 0.15 0.15 0.15 rg
-45 283 Td
+45 273 Td
 (\\(bullet\\) GeeksforGeeks GFG 160 Certification - Certificate Link [media.geeksforgeeks.org]) Tj
 ET
 
 BT
 /F2 8.2 Tf
 0.15 0.15 0.15 rg
-45 270 Td
+45 260 Td
 (\\(bullet\\) Machine Learning Specialization \\(Stanford University & DeepLearning.AI\\) - Certificate Link [coursera.org]) Tj
 ET
 
 % SECTION: ACHIEVEMENTS
 0.2 0.2 0.2 RG
 0.8 w
-40 258 m 555 258 l S
+40 248 m 555 248 l S
 
 BT
 /F1 10.5 Tf
 0.1 0.1 0.1 rg
-40 246 Td
+40 236 Td
 (ACHIEVEMENTS) Tj
 ET
 
 BT
 /F2 8.2 Tf
 0.15 0.15 0.15 rg
-45 233 Td
+45 223 Td
 (\\(bullet\\) Solved 100+ Data Structures and Algorithms problems across LeetCode \\(laksh076\\) and Codolio \\(Laksh14\\).) Tj
-45 220 Td
-(\\(bullet\\) Developed and deployed real-world projects including Fake News Analysis System and Inventory Management System.) Tj
-45 207 Td
-(\\(bullet\\) Maintained a CGPA of 8.24 / 10 in Computer Science and Engineering at JSSATE Bengaluru.) Tj
+45 210 Td
+(\\(bullet\\) Developed and deployed real-world projects including Fake News Analysis System and Inventory Management System) Tj
+45 200 Td
+(  using React, TypeScript, Firebase, and AI APIs.) Tj
+45 187 Td
+(\\(bullet\\) Maintained a CGPA of 8.24 / 10 in Computer Science and Engineering.) Tj
 ET
 
 endstream
@@ -479,7 +460,7 @@ startxref
 
   fs.writeFileSync(path.join(publicDir, 'Laksh_Suthar_Resume.pdf'), content);
   fs.writeFileSync(path.join(publicDir, 'resume.pdf'), content);
-  console.log('Regenerated official resume PDF successfully.');
+  console.log('Regenerated exact 1:1 official resume PDF successfully.');
 }
 
 generateExactResumePdf();
