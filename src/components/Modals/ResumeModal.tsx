@@ -77,11 +77,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                       universeAudio.playHoverChirp();
                       setActiveView('paper');
                     }}
-                    className={`px-3 py-1.5 rounded-md transition-colors cursor-pointer flex items-center gap-1.5 ${
-                      activeView === 'paper'
+                    className={`px-3 py-1.5 rounded-md transition-colors cursor-pointer flex items-center gap-1.5 ${activeView === 'paper'
                         ? 'bg-cyan-950 text-cyan-300 font-semibold shadow-sm'
                         : 'text-slate-400 hover:text-white'
-                    }`}
+                      }`}
                   >
                     <Eye className="w-3.5 h-3.5" />
                     <span>Visual Paper</span>
@@ -92,11 +91,10 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                       universeAudio.playHoverChirp();
                       setActiveView('embed');
                     }}
-                    className={`px-3 py-1.5 rounded-md transition-colors cursor-pointer flex items-center gap-1.5 ${
-                      activeView === 'embed'
+                    className={`px-3 py-1.5 rounded-md transition-colors cursor-pointer flex items-center gap-1.5 ${activeView === 'embed'
                         ? 'bg-cyan-950 text-cyan-300 font-semibold shadow-sm'
                         : 'text-slate-400 hover:text-white'
-                    }`}
+                      }`}
                   >
                     <FileText className="w-3.5 h-3.5" />
                     <span>PDF Viewer</span>
@@ -201,7 +199,7 @@ export const ResumeModal: React.FC<ResumeModalProps> = ({ isOpen, onClose }) => 
                       </a>
                       <span style={{ color: '#94a3b8' }}>|</span>
                       <a
-                        href="https://lakshsutharportfolio.vercel.app/"
+                        href="https://portfolio-laksh.vercel.app/"
                         target="_blank"
                         rel="noreferrer"
                         style={{ color: '#0066cc' }}
