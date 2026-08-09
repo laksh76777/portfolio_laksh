@@ -13,6 +13,7 @@ import { ContactSection } from './components/Contact/ContactSection';
 import { Footer } from './components/Footer/Footer';
 import { ResumeModal } from './components/Modals/ResumeModal';
 import { ProjectDetailModal } from './components/Modals/ProjectDetailModal';
+import { ScientificCursor } from './components/common/ScientificCursor';
 import { universeAudio } from './services/audio';
 
 export function App() {
@@ -101,6 +102,9 @@ export function App() {
       {loading && (
         <LoadingScreen onComplete={() => setLoading(false)} />
       )}
+
+      {/* Unique Scientific Custom Cursor */}
+      <ScientificCursor />
 
       {/* Persistent 3D Space Universe Canvas */}
       <UniverseCanvas
