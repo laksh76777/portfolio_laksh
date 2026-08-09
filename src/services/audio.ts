@@ -1,19 +1,24 @@
-// High-Fidelity Web Audio API Synthesizer & Global Soundscape for Universe Portfolio
+// High-Fidelity Web Audio API Synthesizer & Looping Background Audio for Universe Portfolio
 
 class UniverseAudioService {
   private ctx: AudioContext | null = null;
   private isMuted: boolean = false;
+  private bgAudio: HTMLAudioElement | null = null;
   private ambientGain: GainNode | null = null;
   private ambientOsc1: OscillatorNode | null = null;
   private ambientOsc2: OscillatorNode | null = null;
   private isAmbientPlaying: boolean = false;
+  private bgAudioVolume: number = 0.12; // Minimum subtle background sound as requested
 
   constructor() {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem('universe_sound_muted');
       this.isMuted = stored === 'true';
 
-      // Global click listener to ensure audio plays on all button/link interactions
+      // Setup Looping Background Soundtrack
+      this.initBackgroundAudio();
+
+      // Global click listener to ensure audio feedback on all button/link interactions
       window.addEventListener('click', (e) => {
         const target = e.target as HTMLElement;
         if (target && (target.closest('button') || target.closest('a') || target.closest('[role="button"]'))) {
@@ -21,17 +26,50 @@ class UniverseAudioService {
         }
       }, { passive: true });
 
-      // Start ambient on first interaction if unmuted
+      // Start background audio on first user gesture
       const startOnGesture = () => {
         this.initContext();
-        if (!this.isMuted && !this.isAmbientPlaying) {
-          this.startAmbientDrone();
+        if (!this.isMuted) {
+          this.playBackgroundAudio();
         }
         window.removeEventListener('pointerdown', startOnGesture);
         window.removeEventListener('keydown', startOnGesture);
+        window.removeEventListener('click', startOnGesture);
       };
       window.addEventListener('pointerdown', startOnGesture, { once: true });
       window.addEventListener('keydown', startOnGesture, { once: true });
+      window.addEventListener('click', startOnGesture, { once: true });
+    }
+  }
+
+  private initBackgroundAudio() {
+    if (typeof window === 'undefined') return;
+    try {
+      this.bgAudio = new Audio('/audio/background.mp3');
+      this.bgAudio.loop = true;
+      this.bgAudio.volume = this.bgAudioVolume;
+      this.bgAudio.preload = 'auto';
+    } catch {
+      // Audio element initialization fallback
+    }
+  }
+
+  public playBackgroundAudio() {
+    if (this.isMuted) return;
+    if (!this.bgAudio) {
+      this.initBackgroundAudio();
+    }
+    if (this.bgAudio) {
+      this.bgAudio.volume = this.bgAudioVolume;
+      this.bgAudio.play().catch(() => {
+        // Handled after gesture
+      });
+    }
+  }
+
+  public pauseBackgroundAudio() {
+    if (this.bgAudio) {
+      this.bgAudio.pause();
     }
   }
 
@@ -58,16 +96,18 @@ class UniverseAudioService {
     }
     
     if (this.isMuted) {
+      this.pauseBackgroundAudio();
       this.stopAmbientDrone();
     } else {
       this.initContext();
       this.playClickBeep();
+      this.playBackgroundAudio();
       this.startAmbientDrone();
     }
     return this.isMuted;
   }
 
-  // Background Ambient Cosmic Drone
+  // Background Ambient Cosmic Drone (Complementary synth layer)
   public startAmbientDrone() {
     if (this.isMuted || this.isAmbientPlaying) return;
     this.initContext();
@@ -76,7 +116,7 @@ class UniverseAudioService {
     try {
       this.ambientGain = this.ctx.createGain();
       this.ambientGain.gain.setValueAtTime(0.001, this.ctx.currentTime);
-      this.ambientGain.gain.exponentialRampToValueAtTime(0.035, this.ctx.currentTime + 3);
+      this.ambientGain.gain.exponentialRampToValueAtTime(0.02, this.ctx.currentTime + 3);
 
       this.ambientOsc1 = this.ctx.createOscillator();
       this.ambientOsc1.type = 'sine';
