@@ -1,31 +1,21 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 
 export const ScientificCursor: React.FC = () => {
-  const dotRef = useRef<HTMLDivElement>(null);
-  const ringRef = useRef<HTMLDivElement>(null);
-  const [coords, setCoords] = useState({ x: -100, y: -100 });
+  const [pos, setPos] = useState({ x: -100, y: -100 });
+  const [trailPos, setTrailPos] = useState({ x: -100, y: -100 });
   const [isHovered, setIsHovered] = useState(false);
   const [isClicked, setIsClicked] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [isTouchDevice, setIsTouchDevice] = useState(true);
+  const [hasMoved, setHasMoved] = useState(false);
 
-  // Position interpolation state
-  const mousePos = useRef({ x: -100, y: -100 });
-  const ringPos = useRef({ x: -100, y: -100 });
-  const requestRef = useRef<number>(0);
+  const targetPos = useRef({ x: -100, y: -100 });
+  const currentTrail = useRef({ x: -100, y: -100 });
 
   useEffect(() => {
-    // Check if fine pointer is available (desktop / mouse)
-    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
-    setIsTouchDevice(!hasFinePointer);
-    if (!hasFinePointer) return;
+    const onMouseMove = (e: MouseEvent) => {
+      targetPos.current = { x: e.clientX, y: e.clientY };
+      setPos({ x: e.clientX, y: e.clientY });
+      if (!hasMoved) setHasMoved(true);
 
-    const handleMouseMove = (e: MouseEvent) => {
-      mousePos.current = { x: e.clientX, y: e.clientY };
-      setCoords({ x: Math.round(e.clientX), y: Math.round(e.clientY) });
-      if (!isVisible) setIsVisible(true);
-
-      // Check if hovering over interactive element
       const target = e.target as HTMLElement | null;
       if (
         target &&
@@ -34,7 +24,8 @@ export const ScientificCursor: React.FC = () => {
           target.closest('input') ||
           target.closest('textarea') ||
           target.closest('[role="button"]') ||
-          target.closest('.interactive-target'))
+          target.tagName === 'A' ||
+          target.tagName === 'BUTTON')
       ) {
         setIsHovered(true);
       } else {
@@ -42,104 +33,104 @@ export const ScientificCursor: React.FC = () => {
       }
     };
 
-    const handleMouseDown = () => setIsClicked(true);
-    const handleMouseUp = () => setIsClicked(false);
-    const handleMouseLeave = () => setIsVisible(false);
-    const handleMouseEnter = () => setIsVisible(true);
+    const onMouseDown = () => setIsClicked(true);
+    const onMouseUp = () => setIsClicked(false);
 
-    window.addEventListener('mousemove', handleMouseMove, { passive: true });
-    window.addEventListener('mousedown', handleMouseDown);
-    window.addEventListener('mouseup', handleMouseUp);
-    document.addEventListener('mouseleave', handleMouseLeave);
-    document.addEventListener('mouseenter', handleMouseEnter);
+    window.addEventListener('mousemove', onMouseMove, { passive: true });
+    window.addEventListener('mousedown', onMouseDown);
+    window.addEventListener('mouseup', onMouseUp);
 
-    // Smooth physics loop for outer scientific HUD ring
-    const updateRing = () => {
-      // Lerp ring toward mouse
-      const ease = 0.22;
-      ringPos.current.x += (mousePos.current.x - ringPos.current.x) * ease;
-      ringPos.current.y += (mousePos.current.y - ringPos.current.y) * ease;
+    // Smooth physics loop for outer trailing HUD reticle
+    let animId = 0;
+    const loop = () => {
+      const ease = 0.25;
+      currentTrail.current.x += (targetPos.current.x - currentTrail.current.x) * ease;
+      currentTrail.current.y += (targetPos.current.y - currentTrail.current.y) * ease;
 
-      if (dotRef.current) {
-        dotRef.current.style.transform = `translate3d(${mousePos.current.x}px, ${mousePos.current.y}px, 0)`;
-      }
+      setTrailPos({
+        x: Math.round(currentTrail.current.x * 10) / 10,
+        y: Math.round(currentTrail.current.y * 10) / 10,
+      });
 
-      if (ringRef.current) {
-        ringRef.current.style.transform = `translate3d(${ringPos.current.x}px, ${ringPos.current.y}px, 0)`;
-      }
-
-      requestRef.current = requestAnimationFrame(updateRing);
+      animId = requestAnimationFrame(loop);
     };
 
-    requestRef.current = requestAnimationFrame(updateRing);
+    animId = requestAnimationFrame(loop);
 
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mousedown', handleMouseDown);
-      window.removeEventListener('mouseup', handleMouseUp);
-      document.removeEventListener('mouseleave', handleMouseLeave);
-      document.removeEventListener('mouseenter', handleMouseEnter);
-      cancelAnimationFrame(requestRef.current);
+      window.removeEventListener('mousemove', onMouseMove);
+      window.removeEventListener('mousedown', onMouseDown);
+      window.removeEventListener('mouseup', onMouseUp);
+      cancelAnimationFrame(animId);
     };
-  }, [isVisible]);
+  }, [hasMoved]);
 
-  if (isTouchDevice || !isVisible) return null;
+  if (!hasMoved) return null;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-[99999] overflow-hidden">
-      {/* 1. Center Precision Quantum Laser Dot */}
+    <div className="fixed inset-0 pointer-events-none z-[999999] overflow-hidden select-none">
+      {/* 1. Outer Smooth Trailing Sci-Fi HUD Reticle */}
       <div
-        ref={dotRef}
-        className="fixed top-0 left-0 -ml-[4px] -mt-[4px] w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#38bdf8,0_0_20px_#06b6d4] transition-opacity duration-150"
-      />
-
-      {/* 2. Scientific Gyroscopic HUD Reticle & Crosshairs */}
-      <div
-        ref={ringRef}
-        className={`fixed top-0 left-0 flex items-center justify-center transition-all duration-300 ${
-          isHovered
-            ? '-ml-[28px] -mt-[28px] w-14 h-14'
-            : '-ml-[18px] -mt-[18px] w-9 h-9'
-        }`}
+        className={`fixed top-0 left-0 flex items-center justify-center pointer-events-none transition-transform duration-75`}
+        style={{
+          transform: `translate3d(${trailPos.x}px, ${trailPos.y}px, 0) translate(-50%, -50%)`,
+        }}
       >
-        {/* Rotating Outer Dashed Telemetry Ring */}
+        {/* Outer Rotating Segmented Hologram Ring */}
         <div
-          className={`absolute inset-0 rounded-full border border-dashed transition-all duration-300 ${
+          className={`rounded-full border border-dashed transition-all duration-300 ${
             isHovered
-              ? 'border-cyan-400 shadow-[0_0_20px_rgba(56,189,248,0.6)] animate-[spin_4s_linear_infinite]'
-              : 'border-cyan-500/40 animate-[spin_10s_linear_infinite]'
-          } ${isClicked ? 'scale-90 border-rose-400 shadow-[0_0_25px_rgba(244,63,94,0.8)]' : ''}`}
+              ? 'w-14 h-14 border-cyan-300 shadow-[0_0_25px_rgba(56,189,248,0.9)] animate-[spin_3s_linear_infinite]'
+              : 'w-9 h-9 border-cyan-400/60 animate-[spin_8s_linear_infinite]'
+          } ${isClicked ? 'scale-90 border-rose-400 shadow-[0_0_30px_rgba(244,63,94,0.9)]' : ''}`}
         />
 
-        {/* Inner Precision Target Ring */}
+        {/* 4 Corner Targeting Crosshair Brackets */}
         <div
-          className={`absolute inset-1 rounded-full border transition-all duration-300 ${
-            isHovered
-              ? 'border-purple-400/60 scale-105'
-              : 'border-cyan-400/20'
+          className={`absolute transition-all duration-300 ${
+            isHovered ? 'w-16 h-16' : 'w-11 h-11'
+          }`}
+        >
+          {/* Top-Left */}
+          <div className="absolute top-0 left-0 w-2 h-2 border-t-2 border-l-2 border-cyan-400 shadow-[0_0_8px_#38bdf8]" />
+          {/* Top-Right */}
+          <div className="absolute top-0 right-0 w-2 h-2 border-t-2 border-r-2 border-cyan-400 shadow-[0_0_8px_#38bdf8]" />
+          {/* Bottom-Left */}
+          <div className="absolute bottom-0 left-0 w-2 h-2 border-b-2 border-l-2 border-cyan-400 shadow-[0_0_8px_#38bdf8]" />
+          {/* Bottom-Right */}
+          <div className="absolute bottom-0 right-0 w-2 h-2 border-b-2 border-r-2 border-cyan-400 shadow-[0_0_8px_#38bdf8]" />
+        </div>
+
+        {/* Dynamic Orbiting Quantum Photon Satellite */}
+        <div className="absolute inset-0 animate-[spin_2s_linear_infinite]">
+          <div className="absolute top-0 left-1/2 -ml-1 -mt-1 w-2 h-2 rounded-full bg-cyan-300 shadow-[0_0_12px_#38bdf8,0_0_24px_#06b6d4]" />
+        </div>
+
+        {/* Click Shockwave Expansion Wave */}
+        {isClicked && (
+          <div className="absolute w-12 h-12 rounded-full border-2 border-cyan-300 animate-ping opacity-90 pointer-events-none" />
+        )}
+      </div>
+
+      {/* 2. Center Instant Precision Quantum Laser Dot (Zero-Latency) */}
+      <div
+        className="fixed top-0 left-0 pointer-events-none flex items-center justify-center"
+        style={{
+          transform: `translate3d(${pos.x}px, ${pos.y}px, 0) translate(-50%, -50%)`,
+        }}
+      >
+        {/* Glowing Center Laser Core */}
+        <div
+          className={`rounded-full bg-white transition-all duration-150 shadow-[0_0_10px_#38bdf8,0_0_20px_#06b6d4,0_0_30px_#38bdf8] ${
+            isHovered ? 'w-3 h-3 bg-cyan-200 ring-2 ring-cyan-400' : 'w-2 h-2'
           }`}
         />
 
-        {/* 4 Corner Crosshairs */}
-        <div className="absolute -top-1 w-1.5 h-0.5 bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
-        <div className="absolute -bottom-1 w-1.5 h-0.5 bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
-        <div className="absolute -left-1 w-0.5 h-1.5 bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
-        <div className="absolute -right-1 w-0.5 h-1.5 bg-cyan-400 shadow-[0_0_6px_#38bdf8]" />
-
-        {/* Click Shockwave Ring */}
-        {isClicked && (
-          <div className="absolute inset-0 rounded-full border-2 border-cyan-300 animate-ping opacity-75 pointer-events-none" />
-        )}
-
-        {/* Scientific HUD Coordinates & Status Tag on Hover */}
-        {isHovered && (
-          <div className="absolute left-16 top-1/2 -translate-y-1/2 px-2 py-0.5 rounded bg-slate-950/90 border border-cyan-500/50 text-[8px] font-mono text-cyan-300 shadow-[0_0_12px_rgba(56,189,248,0.3)] whitespace-nowrap flex items-center gap-1.5">
-            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping" />
-            <span className="text-white font-bold">LOCK</span>
-            <span className="text-slate-500">|</span>
-            <span className="text-cyan-400">{coords.x}:{coords.y}</span>
-          </div>
-        )}
+        {/* Precision Micro Crosshair Lines */}
+        <div className="absolute -top-3 w-[1.5px] h-2 bg-cyan-400/90 shadow-[0_0_6px_#38bdf8]" />
+        <div className="absolute -bottom-3 w-[1.5px] h-2 bg-cyan-400/90 shadow-[0_0_6px_#38bdf8]" />
+        <div className="absolute -left-3 w-2 h-[1.5px] bg-cyan-400/90 shadow-[0_0_6px_#38bdf8]" />
+        <div className="absolute -right-3 w-2 h-[1.5px] bg-cyan-400/90 shadow-[0_0_6px_#38bdf8]" />
       </div>
     </div>
   );
