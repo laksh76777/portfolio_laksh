@@ -8,12 +8,23 @@ interface FooterProps {
 }
 
 export const Footer: React.FC<FooterProps> = () => {
-  const [utcTime, setUtcTime] = useState<string>('');
+  const [istTime, setIstTime] = useState<string>('');
 
   useEffect(() => {
     const update = () => {
       const now = new Date();
-      setUtcTime(now.toUTCString().replace('GMT', 'UTC'));
+      const istFormatter = new Intl.DateTimeFormat('en-IN', {
+        timeZone: 'Asia/Kolkata',
+        year: 'numeric',
+        month: 'short',
+        day: '2-digit',
+        hour: '2-digit',
+        minute: '2-digit',
+        second: '2-digit',
+        hour12: false,
+      });
+      const formattedTime = istFormatter.format(now);
+      setIstTime(`${formattedTime} IST`);
     };
     update();
     const interval = setInterval(update, 1000);
@@ -45,7 +56,7 @@ export const Footer: React.FC<FooterProps> = () => {
             </div>
           </div>
 
-          {/* UTC Clock & System status */}
+          {/* IST Clock & System status */}
           <div className="flex items-center gap-4 text-xs font-mono">
             <div className="hidden sm:flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950 border border-slate-800 text-slate-300">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
@@ -53,14 +64,14 @@ export const Footer: React.FC<FooterProps> = () => {
             </div>
 
             <div className="text-slate-400 text-[11px]">
-              {utcTime || 'SYNCHRONIZING UTC TELEMETRY...'}
+              {istTime || 'SYNCHRONIZING IST TELEMETRY...'}
             </div>
 
             {/* Scroll to Top */}
             <button
               onClick={scrollToTop}
               onMouseEnter={() => universeAudio.playHoverChirp()}
-              className="px-3.5 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-cyan-400 text-xs font-mono text-slate-300 hover:text-cyan-300 flex items-center gap-2 cursor-pointer transition-all shadow-sm"
+              className="px-3.5 py-1.5 rounded-xl bg-slate-950 hover:bg-slate-900 border border-slate-800 hover:border-cyan-400 text-xs font-mono text-slate-300 hover:text-cyan-300 flex items-center gap-2 transition-all duration-300"
               title="Return to top of page"
             >
               <span>RETURN TO APEX</span>
