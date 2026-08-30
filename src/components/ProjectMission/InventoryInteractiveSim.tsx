@@ -22,6 +22,7 @@ const INITIAL_ITEMS: InventoryItem[] = [
 export const InventoryInteractiveSim: React.FC = () => {
   const [items, setItems] = useState<InventoryItem[]>(INITIAL_ITEMS);
   const [cart, setCart] = useState<{ name: string; qty: number; total: number }[]>([]);
+  const [syncNotice, setSyncNotice] = useState<string>('Firebase Firestore Real-Time: Synchronized');
 
   const updateStock = (id: string, delta: number) => {
     universeAudio.playHoverChirp();
@@ -42,6 +43,11 @@ export const InventoryInteractiveSim: React.FC = () => {
         };
       })
     );
+
+    setSyncNotice('Syncing mutation to Firestore cloud...');
+    setTimeout(() => {
+      setSyncNotice('Firebase Firestore: State Verified (24ms)');
+    }, 400);
   };
 
   const handleScanBarcode = (item: InventoryItem) => {
@@ -76,10 +82,13 @@ export const InventoryInteractiveSim: React.FC = () => {
         <div className="flex items-center gap-2">
           <Database className="w-4 h-4 text-emerald-400 animate-pulse" />
           <span className="text-xs font-orbitron font-bold text-white">
-            REAL-TIME INVENTORY OS
+            FIREBASE REAL-TIME INVENTORY OS
           </span>
         </div>
         <div className="flex items-center gap-2">
+          <span className="text-[10px] font-mono text-emerald-400 bg-emerald-950/80 px-2 py-0.5 rounded border border-emerald-500/30">
+            {syncNotice}
+          </span>
           <button
             onClick={resetInventory}
             className="p-1 rounded bg-slate-900 border border-slate-700 text-slate-400 hover:text-white cursor-pointer"
