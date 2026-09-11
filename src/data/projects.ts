@@ -93,7 +93,7 @@ export const PROJECTS_DATA: ProjectData[] = [
     ],
     githubUrl: "https://github.com/laksh76777/hospital_managment_frontend",
     liveDemoUrl: "https://github.com/laksh76777/hospital_managment_frontend",
-    previewImage: "/images/astronaut_hologram.jpg",
+    previewImage: "/images/sanjeevani.png",
     highlights: [
       "Role-based hospital workflows",
       "Secure authentication and protected access",
@@ -125,7 +125,7 @@ export const PROJECTS_DATA: ProjectData[] = [
     ],
     githubUrl: "https://github.com/laksh76777/supply_chain_investigator",
     liveDemoUrl: "https://github.com/laksh76777/supply_chain_investigator",
-    previewImage: "/images/astronaut_hologram.jpg",
+    previewImage: "/images/supply_chain.png",
     highlights: [
       "Graph-based supply chain investigation",
       "Evidence-led analytical workflows",
