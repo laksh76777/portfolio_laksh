@@ -132,5 +132,58 @@ export const PROJECTS_DATA: ProjectData[] = [
       "Gemini AI risk and mitigation recommendations",
       "What-if disruption simulation and impact analysis"
     ]
+  },
+  {
+    id: "servicehub-marketplace",
+    title: "ServiceHub — Intelligent Home Services Marketplace",
+    codename: "PROJECT SERVICEHUB // MARKETPLACE-CORE",
+    category: "Full-Stack Marketplace & AI Services",
+    year: "2026",
+    tagline: "Full-stack home-services marketplace connecting customers with service professionals with AI classification, booking lifecycle tracking, and PDF invoicing.",
+    description: "Engineered a full-stack home-services marketplace connecting customers with service professionals through service discovery, technician profiles, quotation/estimate workflows, booking management, and end-to-end booking lifecycle tracking.",
+    detailedBullets: [
+      "Engineered a full-stack home-services marketplace connecting customers with service professionals through service discovery, technician profiles, quotation/estimate workflows, booking management, and end-to-end booking lifecycle tracking.",
+      "Developed a modular REST API architecture using Node.js/Express.js with separate controllers, routes, models, middleware, services, and background jobs for maintainable backend workflows.",
+      "Implemented role-based application flows for customers, service technicians, and administrators, supporting marketplace operations, booking management, service relationships, and administrative dashboards.",
+      "Built an AI-assisted service classification engine using Google Gemini with a resilient rule-based fallback to categorize customer problems, estimate urgency, identify possible problem areas, and recommend appropriate services without making autonomous pricing or diagnostic decisions.",
+      "Implemented estimate, invoice, and PDF generation workflows using PDFKit, enabling structured service quotations and downloadable invoices throughout the booking lifecycle.",
+      "Added payment-service abstraction with pluggable payment providers and a demo payment implementation designed for future Razorpay enablement, keeping payment logic decoupled from core booking workflows.",
+      "Integrated Firebase authentication/services, MongoDB data persistence with Mongoose, and Redis + BullMQ infrastructure for asynchronous/background processing.",
+      "Implemented secure backend foundations with Helmet, CORS, environment-based configuration, request rate limiting, file uploads, and structured service-layer validation.",
+      "Built customer/service-provider communication workflows including booking lifecycle notifications, post-payment processing, warranty/dispute handling, and review-related workflows.",
+      "Deployed the production frontend on Vercel with the backend exposed through a hosted REST API, providing a complete independently deployable full-stack application."
+    ],
+    techStack: [
+      "React.js",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Mongoose",
+      "Firebase",
+      "Redis",
+      "BullMQ",
+      "Tailwind CSS",
+      "Gemini AI",
+      "PDFKit",
+      "Vercel"
+    ],
+    status: "MISSION ACTIVE // DEPLOYED",
+    metrics: [
+      { label: "MARKETPLACE", value: "Customer + Tech + Admin" },
+      { label: "AI ENGINE", value: "Gemini AI + Fallback" },
+      { label: "QUEUES", value: "Redis + BullMQ" },
+      { label: "DEPLOYMENT", value: "Vercel + Hosted API" }
+    ],
+    githubUrl: "https://github.com/laksh76777/service_hub_fronend",
+    githubBackendUrl: "https://github.com/laksh76777/service_hub_backend",
+    liveDemoUrl: "https://servicehub-lake.vercel.app/",
+    previewImage: "/images/servicehub.png",
+    highlights: [
+      "AI-assisted service classification engine using Google Gemini",
+      "Role-based flows for customers, service technicians, and admins",
+      "Automated estimate, invoice & PDF generation with PDFKit",
+      "Redis + BullMQ asynchronous background queue architecture"
+    ]
   }
 ];
+

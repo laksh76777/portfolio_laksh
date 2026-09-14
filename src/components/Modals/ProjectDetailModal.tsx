@@ -122,25 +122,50 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
           {/* Footer Actions */}
           <div className="p-4 sm:p-5 bg-slate-950 border-t border-slate-800 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <a
-                href={project.liveDemoUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-orbitron font-bold text-xs flex items-center gap-1.5 transition-colors"
-              >
-                <ExternalLink className="w-3.5 h-3.5" />
-                <span>LIVE DEMO</span>
-              </a>
+              {project.liveDemoUrl && !project.liveDemoUrl.includes('github.com') && (
+                <a
+                  href={project.liveDemoUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-orbitron font-bold text-xs flex items-center gap-1.5 transition-colors"
+                >
+                  <ExternalLink className="w-3.5 h-3.5" />
+                  <span>LIVE DEMO</span>
+                </a>
+              )}
 
-              <a
-                href={project.githubUrl}
-                target="_blank"
-                rel="noreferrer"
-                className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 text-xs font-mono flex items-center gap-1.5 transition-colors"
-              >
-                <GithubIcon className="w-3.5 h-3.5" />
-                <span>GITHUB</span>
-              </a>
+              {project.githubBackendUrl ? (
+                <>
+                  <a
+                    href={project.githubUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 text-xs font-mono flex items-center gap-1.5 transition-colors"
+                  >
+                    <GithubIcon className="w-3.5 h-3.5" />
+                    <span>FRONTEND REPO</span>
+                  </a>
+                  <a
+                    href={project.githubBackendUrl}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 text-xs font-mono flex items-center gap-1.5 transition-colors"
+                  >
+                    <GithubIcon className="w-3.5 h-3.5" />
+                    <span>BACKEND REPO</span>
+                  </a>
+                </>
+              ) : (
+                <a
+                  href={project.githubUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="px-4 py-2 rounded-xl bg-slate-900 border border-slate-700 hover:border-slate-500 text-slate-200 text-xs font-mono flex items-center gap-1.5 transition-colors"
+                >
+                  <GithubIcon className="w-3.5 h-3.5" />
+                  <span>GITHUB</span>
+                </a>
+              )}
             </div>
 
             <button

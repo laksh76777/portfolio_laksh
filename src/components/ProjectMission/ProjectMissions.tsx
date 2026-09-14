@@ -36,7 +36,7 @@ export const ProjectMissions: React.FC<ProjectMissionsProps> = ({ onOpenProjectD
         {/* 2 Featured Project Cards Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-stretch">
           {PROJECTS_DATA.map((project, index) => {
-            const hasLiveDemo = project.id === 'fake-news-analysis-system' && Boolean(project.liveDemoUrl);
+            const hasLiveDemo = Boolean(project.liveDemoUrl) && !project.liveDemoUrl.includes('github.com');
 
             return (
               <div
@@ -48,7 +48,7 @@ export const ProjectMissions: React.FC<ProjectMissionsProps> = ({ onOpenProjectD
                   {/* Top pill bar */}
                   <div className="flex items-center justify-between gap-2 pb-4 border-b border-slate-800 text-xs font-mono">
                     <span className="text-amber-400 font-bold tracking-widest">
-                      0{index + 1} / 02 • {project.year}
+                      0{index + 1} / 0{PROJECTS_DATA.length} • {project.year}
                     </span>
                     <span className="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-[10px]">
                       {project.status}
@@ -103,20 +103,47 @@ export const ProjectMissions: React.FC<ProjectMissionsProps> = ({ onOpenProjectD
 
                 {/* Bottom Action Links */}
                 <div className="pt-4 border-t border-slate-800 flex flex-wrap items-center gap-3">
-                  {/* GitHub Button */}
-                  <a
-                    href={project.githubUrl}
-                    target="_blank"
-                    rel="noreferrer"
-                    onClick={() => universeAudio.playClickBeep()}
-                    className="flex-1 min-w-[140px] px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400 text-slate-200 hover:text-white text-xs font-mono flex items-center justify-center gap-2 transition-colors cursor-pointer"
-                  >
-                    <GithubIcon className="w-4 h-4" />
-                    <span>GitHub Repository</span>
-                    <ExternalLink className="w-3 h-3 text-slate-500" />
-                  </a>
+                  {/* GitHub Button(s) */}
+                  {project.githubBackendUrl ? (
+                    <>
+                      <a
+                        href={project.githubUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={() => universeAudio.playClickBeep()}
+                        className="flex-1 min-w-[120px] px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400 text-slate-200 hover:text-white text-xs font-mono flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                      >
+                        <GithubIcon className="w-4 h-4" />
+                        <span>Frontend</span>
+                        <ExternalLink className="w-3 h-3 text-slate-500" />
+                      </a>
+                      <a
+                        href={project.githubBackendUrl}
+                        target="_blank"
+                        rel="noreferrer"
+                        onClick={() => universeAudio.playClickBeep()}
+                        className="flex-1 min-w-[120px] px-3.5 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400 text-slate-200 hover:text-white text-xs font-mono flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                      >
+                        <GithubIcon className="w-4 h-4" />
+                        <span>Backend</span>
+                        <ExternalLink className="w-3 h-3 text-slate-500" />
+                      </a>
+                    </>
+                  ) : (
+                    <a
+                      href={project.githubUrl}
+                      target="_blank"
+                      rel="noreferrer"
+                      onClick={() => universeAudio.playClickBeep()}
+                      className="flex-1 min-w-[140px] px-4 py-2.5 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-700 hover:border-cyan-400 text-slate-200 hover:text-white text-xs font-mono flex items-center justify-center gap-2 transition-colors cursor-pointer"
+                    >
+                      <GithubIcon className="w-4 h-4" />
+                      <span>GitHub Repository</span>
+                      <ExternalLink className="w-3 h-3 text-slate-500" />
+                    </a>
+                  )}
 
-                  {/* Live Demo only if Fake News */}
+                  {/* Live Demo */}
                   {hasLiveDemo && (
                     <a
                       href={project.liveDemoUrl}

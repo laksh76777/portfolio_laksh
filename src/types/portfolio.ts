@@ -16,6 +16,7 @@ export interface ProjectData {
     value: string;
   }[];
   githubUrl: string;
+  githubBackendUrl?: string;
   liveDemoUrl: string;
   previewImage: string;
   highlights: string[];
