@@ -48,7 +48,7 @@ export const ProjectMissions: React.FC<ProjectMissionsProps> = ({ onOpenProjectD
                   {/* Top pill bar */}
                   <div className="flex items-center justify-between gap-2 pb-4 border-b border-slate-800 text-xs font-mono">
                     <span className="text-amber-400 font-bold tracking-widest">
-                      0{index + 1} / 0{PROJECTS_DATA.length} • {project.year}
+                      {String(index + 1).padStart(2, '0')} / {String(PROJECTS_DATA.length).padStart(2, '0')} • {project.year}
                     </span>
                     <span className="px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 text-[10px]">
                       {project.status}

@@ -2,7 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import type { ProjectData } from '../../types/portfolio';
 import { GithubIcon } from '../common/Icons';
-import { X, ExternalLink, CheckCircle2, Cpu, Sparkles } from 'lucide-react';
+import { X, ExternalLink, CheckCircle2, Cpu, Sparkles, Terminal } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
 
 interface ProjectDetailModalProps {
@@ -43,7 +43,7 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
                 universeAudio.playHoverChirp();
                 onClose();
               }}
-              className="p-1.5 rounded-lg bg-slate-900 border border-slate-700 hover:border-rose-400 text-slate-400 hover:text-rose-300 cursor-pointer transition-colors"
+              className="p-1.5 rounded-lg bg-slate-950 border border-slate-700 hover:border-rose-400 text-slate-400 hover:text-rose-300 cursor-pointer transition-colors"
             >
               <X className="w-5 h-5" />
             </button>
@@ -76,6 +76,27 @@ export const ProjectDetailModal: React.FC<ProjectDetailModalProps> = ({ project,
             <p className="text-sm text-slate-300 leading-relaxed font-light">
               {project.description}
             </p>
+
+            {/* Detailed Engineering Specifications */}
+            {project.detailedBullets && project.detailedBullets.length > 0 && (
+              <div className="flex flex-col gap-2.5">
+                <div className="text-xs font-mono text-cyan-400 uppercase tracking-widest font-semibold flex items-center gap-1.5">
+                  <Terminal className="w-3.5 h-3.5 text-cyan-400" />
+                  CORE ARCHITECTURAL SPECIFICATIONS
+                </div>
+                <div className="flex flex-col gap-2">
+                  {project.detailedBullets.map((bullet, i) => (
+                    <div
+                      key={i}
+                      className="p-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-slate-300 flex items-start gap-2.5"
+                    >
+                      <span className="text-cyan-400 font-mono text-xs mt-0.5 font-bold">❯</span>
+                      <span className="leading-relaxed">{bullet}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             {/* Architectural Highlights */}
             <div className="flex flex-col gap-2.5">

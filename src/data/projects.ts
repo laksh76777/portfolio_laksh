@@ -184,6 +184,98 @@ export const PROJECTS_DATA: ProjectData[] = [
       "Automated estimate, invoice & PDF generation with PDFKit",
       "Redis + BullMQ asynchronous background queue architecture"
     ]
+  },
+  {
+    id: "dineflow-restaurant-os",
+    title: "DineFlow (DineSetu) — Table Intelligence & Dining OS",
+    codename: "PROJECT DINEFLOW // TABLE-INTEL-V2",
+    category: "Real-Time Systems & AI Hospitality Infrastructure",
+    year: "2026",
+    tagline: "Real-time restaurant table operating system unifying QR contactless ordering, multi-station Kitchen Display (KDS), and Gemini AI culinary curation over WebSockets.",
+    description: "Architected and developed DineFlow (DineSetu), a production-grade restaurant operating platform featuring contactless QR guest dining, a live multi-station Kitchen Display System (KDS), 4 dedicated operational portals (Owner, Manager, Chef, Waiter), and Gemini AI recommendations over bidirectional WebSockets.",
+    detailedBullets: [
+      "Built sub-second bidirectional real-time ordering and kitchen ticket workflows using Socket.IO, synchronizing order status across diners, floor managers, and kitchen stations.",
+      "Implemented 4 dedicated role-based operational portals (Owner, Floor Manager, Executive Chef, Waiter) with real-time floor plan heatmaps, table state lifecycles, and staff calls.",
+      "Integrated Gemini AI 'Help Me Choose' conversational recommendation engine that analyzes guest taste profiles, dietary constraints, and live menu inventory to suggest dishes.",
+      "Architected full-stack Node.js/Express and React 18 / Vite system with TanStack Query, Zustand state sync, automated PDF tax invoice streaming, and resilient MongoDB aggregation.",
+      "Deployed microservices-ready setup with frontend hosted on Vercel and backend services on Render with zero-downtime health monitoring."
+    ],
+    techStack: [
+      "React.js",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "Socket.IO",
+      "MongoDB",
+      "Mongoose",
+      "Gemini AI",
+      "TanStack Query",
+      "Zustand",
+      "Tailwind CSS",
+      "Vercel",
+      "Render"
+    ],
+    status: "MISSION ACTIVE // DEPLOYED",
+    metrics: [
+      { label: "REAL-TIME ENGINE", value: "Socket.IO WebSockets" },
+      { label: "OPERATIONAL ROLES", value: "Customer • Chef • Admin" },
+      { label: "AI ADVISOR", value: "Gemini AI Discovery" },
+      { label: "DEPLOYMENT", value: "Vercel + Render" }
+    ],
+    githubUrl: "https://github.com/laksh76777/DINEFLOW_frontend",
+    githubBackendUrl: "https://github.com/laksh76777/dinesetu_backend",
+    liveDemoUrl: "https://dineflow-frontend-rosy.vercel.app/",
+    previewImage: "/images/dineflow.png",
+    highlights: [
+      "Sub-second bidirectional WebSocket sync across customer & kitchen stations",
+      "Multi-station Kitchen Display System (KDS) with live ticket progression",
+      "Gemini AI 'Help Me Choose' personalized dish recommendation assistant",
+      "Automated PDF tax invoice generation and table session settlement"
+    ]
+  },
+  {
+    id: "vericrypt-hybrid-cryptography",
+    title: "VeriCrypt — Hybrid Cryptography & Integrity Engine",
+    codename: "PROJECT VERICRYPT // ZERO-TRUST-CIPHER",
+    category: "Cybersecurity & Hybrid Cryptographic Engineering",
+    year: "2026",
+    tagline: "Zero-knowledge file encryption and integrity verification system pairing AES-256-GCM data sealing with RSA-OAEP / RSA-PSS and bit-flip tamper detection.",
+    description: "Architected and developed VeriCrypt, an enterprise cryptographic file transmission and tamper-detection suite that combines symmetric AES-256-GCM encryption with asymmetric RSA-OAEP key exchange, SHA-256 integrity digests, RSA-PSS digital signatures, and PBKDF2 client-side key derivation to guarantee zero-plaintext disk persistence.",
+    detailedBullets: [
+      "Engineered a hybrid cryptosystem combining symmetric AES-256-GCM for high-throughput file encryption with 2048-bit RSA-OAEP for asymmetric recipient key exchange.",
+      "Integrated SHA-256 cryptographic hashing and RSA-PSS digital signatures to ensure end-to-end data integrity, authenticity, and sender non-repudiation.",
+      "Constructed an interactive Bit-Flip Tamper Simulator to demonstrate real-time ciphertext corruption, active GCM authentication tag mismatches, and breach alerting.",
+      "Designed client-side private key shielding with PBKDF2 key stretching (100,000+ iterations with SHA-512) and salt-derived AES-GCM wrapping to eliminate key leakage.",
+      "Developed a full-stack Node.js/Express and React/TypeScript architecture with role-based access control, cryptographic audit logging, and encrypted (.enc) file storage."
+    ],
+    techStack: [
+      "React.js",
+      "TypeScript",
+      "Node.js",
+      "Express.js",
+      "MongoDB",
+      "Web Crypto API",
+      "AES-256-GCM",
+      "RSA-OAEP / PSS",
+      "PBKDF2",
+      "Tailwind CSS"
+    ],
+    status: "MISSION ACTIVE // DEPLOYED",
+    metrics: [
+      { label: "FILE CIPHER", value: "AES-256-GCM" },
+      { label: "KEY EXCHANGE", value: "RSA-OAEP 2048" },
+      { label: "INTEGRITY & SIGN", value: "SHA-256 + RSA-PSS" },
+      { label: "TAMPER DETECTION", value: "Active Sub-Bit Alert" }
+    ],
+    githubUrl: "https://github.com/laksh76777/crypto",
+    liveDemoUrl: "https://github.com/laksh76777/crypto",
+    previewImage: "/images/vericrypt.png",
+    highlights: [
+      "Hybrid AES-256-GCM symmetric & RSA-OAEP asymmetric key encipherment",
+      "SHA-256 cryptographic digests paired with RSA-PSS digital signatures",
+      "Interactive bit-flip tamper simulation with immediate tag-mismatch alerts",
+      "Zero-knowledge client-side private key shielding via PBKDF2 key derivation"
+    ]
   }
 ];
 
