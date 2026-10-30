@@ -32,7 +32,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
   const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
-    subject: 'Opportunity / Collaboration',
+    subject: '',
     message: ''
   });
 
@@ -105,7 +105,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
     setFormData({
       name: '',
       email: '',
-      subject: 'Opportunity / Collaboration',
+      subject: '',
       message: ''
     });
     setStatus('idle');
