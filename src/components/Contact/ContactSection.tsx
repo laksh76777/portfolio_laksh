@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { PROFILE_DATA } from '../../data/profile';
 import { GithubIcon, LinkedinIcon, LeetCodeIcon, CodolioIcon } from '../common/Icons';
@@ -17,13 +17,19 @@ import {
   Check
 } from 'lucide-react';
 import { universeAudio } from '../../services/audio';
+import {
+  sendContactEmail,
+  validateContactForm,
+  isEmailJSConfigured,
+  type ContactFormData,
+} from '../../services/emailService';
 
 interface ContactSectionProps {
   onOpenResume?: () => void;
 }
 
 export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<ContactFormData>({
     name: '',
     email: '',
     subject: 'Opportunity / Collaboration',
@@ -34,27 +40,34 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
   const [errorMessage, setErrorMessage] = useState('');
   const [emailCopied, setEmailCopied] = useState(false);
 
-  // Reliable Multi-Platform Email Forwarder
+  // Honeypot field — invisible to real users, traps bots that auto-fill forms.
+  const honeypotRef = useRef<HTMLInputElement>(null);
+
+  // Reliable Multi-Platform Email Forwarder (click-to-copy + Gmail compose)
   const handleEmailClick = () => {
     universeAudio.playClickBeep();
-    // Copy email to clipboard instantly
     navigator.clipboard.writeText(PROFILE_DATA.email);
     setEmailCopied(true);
     setTimeout(() => setEmailCopied(false), 2500);
 
-    // Open Webmail Gmail Compose in new tab
     const gmailUrl = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(PROFILE_DATA.email)}&su=${encodeURIComponent('Hello Laksh - Portfolio Inquiry')}`;
-    const newWin = window.open(gmailUrl, '_blank');
-
-    // Also trigger default mailto protocol
-    if (!newWin || newWin.closed || typeof newWin.closed === 'undefined') {
-      window.location.href = `mailto:${PROFILE_DATA.email}?subject=${encodeURIComponent('Hello Laksh - Portfolio Inquiry')}`;
-    }
+    window.open(gmailUrl, '_blank');
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
+
+    // Honeypot check — abort silently if a bot filled the hidden field.
+    if (honeypotRef.current?.value) return;
+
+    // Prevent double submission.
+    if (status === 'transmitting') return;
+
+    // Client-side validation.
+    const validationErrors = validateContactForm(formData);
+    if (validationErrors.length > 0) {
+      setErrorMessage(validationErrors[0].message);
+      setStatus('error');
       return;
     }
 
@@ -62,57 +75,28 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
     setStatus('transmitting');
     setErrorMessage('');
 
+    if (!isEmailJSConfigured()) {
+      setStatus('error');
+      setErrorMessage(
+        'Contact form is not yet configured. Please reach out directly at ' +
+        PROFILE_DATA.email
+      );
+      console.error('[Contact] EmailJS environment variables are not set.');
+      return;
+    }
+
     try {
-      // Structured Payload dispatched directly to Laksh Suthar's primary Gmail
-      const payload = {
-        'Portfolio Owner': 'Laksh Suthar (Computer Science Engineer & Software Developer)',
-        'Sender Name': formData.name,
-        'Sender Email': formData.email,
-        'Subject / Purpose': formData.subject,
-        'Message Body': formData.message,
-        'Submission Timestamp': new Date().toUTCString(),
-        'Portfolio URL': 'https://github.com/laksh76777',
-        '_subject': `[Portfolio Inquiry] ${formData.subject} - from ${formData.name}`,
-        '_replyto': formData.email,
-        '_template': 'table',
-        '_captcha': 'false'
-      };
-
-      const response = await fetch('https://formsubmit.co/ajax/lakshsuthar703@gmail.com', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          Accept: 'application/json'
-        },
-        body: JSON.stringify(payload)
-      });
-
-      if (response.ok) {
-        setStatus('sent');
-        universeAudio.playTransmissionSuccess();
-      } else {
-        throw new Error('Server returned non-200');
-      }
-    } catch {
-      // Fallback: If network is restricted or offline, open mail client with structured pre-filled body
-      const structuredBody = `Hi Laksh,
-
-I came across your Computer Science portfolio and would like to get in touch.
-
-Name: ${formData.name}
-Email: ${formData.email}
-Subject: ${formData.subject}
-
-Message:
-${formData.message}
-
----
-Sent via Laksh Suthar Portfolio (https://github.com/laksh76777)`;
-
-      const mailtoUrl = `mailto:${PROFILE_DATA.email}?subject=${encodeURIComponent(`[Portfolio] ${formData.subject}`)}&body=${encodeURIComponent(structuredBody)}`;
+      await sendContactEmail(formData);
       setStatus('sent');
       universeAudio.playTransmissionSuccess();
-      window.open(mailtoUrl, '_blank');
+    } catch (err) {
+      // Notification failed — preserve form data so the user can retry.
+      console.error('[Contact] Failed to send notification email:', err);
+      setStatus('error');
+      setErrorMessage(
+        'Failed to send your message. Please try again, or email me directly at ' +
+        PROFILE_DATA.email
+      );
     }
   };
 
@@ -341,6 +325,17 @@ Sent via Laksh Suthar Portfolio (https://github.com/laksh76777)`;
                 onSubmit={handleSubmit}
                 className="flex flex-col gap-5 relative z-10"
               >
+                {/* Honeypot — hidden from users, traps automated bots */}
+                <input
+                  ref={honeypotRef}
+                  type="text"
+                  name="_hp_website"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  aria-hidden="true"
+                  style={{ position: 'absolute', left: '-9999px', opacity: 0, height: 0, width: 0, pointerEvents: 'none' }}
+                />
+
                 {errorMessage && (
                   <div className="p-3.5 rounded-xl bg-rose-950/50 border border-rose-500/40 text-rose-300 text-xs flex items-center gap-2">
                     <AlertCircle className="w-4 h-4" />
