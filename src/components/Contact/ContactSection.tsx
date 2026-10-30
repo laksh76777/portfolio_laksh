@@ -114,7 +114,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
   return (
     <section id="contact" className="py-24 px-4 sm:px-6 lg:px-8 relative z-10">
       <div className="max-w-5xl mx-auto">
-        
+
         {/* Section Header */}
         <div className="flex flex-col items-center text-center mb-10">
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-950/70 border border-cyan-500/30 text-cyan-300 text-xs font-mono tracking-widest uppercase mb-3">
@@ -355,7 +355,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                       required
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="John Doe"
+                      placeholder="Enter your name"
                       className="px-4 py-3.5 rounded-xl bg-slate-950/90 border border-slate-800 text-sm font-sans text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all shadow-inner"
                     />
                   </div>
@@ -370,7 +370,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="john@example.com"
+                      placeholder="Enter your mail"
                       className="px-4 py-3.5 rounded-xl bg-slate-950/90 border border-slate-800 text-sm font-sans text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all shadow-inner"
                     />
                   </div>
@@ -387,7 +387,7 @@ export const ContactSection: React.FC<ContactSectionProps> = ({ onOpenResume }) 
                     required
                     value={formData.subject}
                     onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
-                    placeholder="Opportunity / Collaboration"
+                    placeholder=""
                     className="px-4 py-3.5 rounded-xl bg-slate-950/90 border border-slate-800 text-sm font-sans text-slate-100 placeholder-slate-600 focus:outline-none focus:border-cyan-400 focus:ring-1 focus:ring-cyan-400/50 transition-all shadow-inner"
                   />
                 </div>
